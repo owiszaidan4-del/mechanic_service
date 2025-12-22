@@ -24,41 +24,71 @@ class _StateOfWorkState extends State<StateOfWork> {
           child: AnimatedContainer(
             duration: Duration(milliseconds: 300),
             curve: Curves.easeInOut,
-            height: MediaQuery.of(context).size.height * 0.06,
-            width: MediaQuery.of(context).size.width * 0.4,
+            height: MediaQuery.of(context).size.height * 0.07,
+            width: MediaQuery.of(context).size.width * 0.2,
             decoration: BoxDecoration(
-              color: state ? Colors.green : Colors.redAccent,
+              boxShadow: [
+                BoxShadow(
+                  blurRadius: 20,
+                  blurStyle: BlurStyle.outer,
+                  color: Colors.black,
+                ),
+              ],
+              color: Colors.white,
 
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(30),
             ),
-            child: state
-                ? Align(
-                    alignment: Alignment.topCenter,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Icon(Icons.done_all, color: Colors.white, size: 25),
-                        Text("متوفر", style: TextStyle(color: Colors.white)),
-                      ],
-                    ),
-                  )
-                : Align(
-                    alignment: Alignment.topCenter,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Text(
-                          "غير متوفر",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        Icon(
-                          Icons.cancel_outlined,
-                          color: Colors.white,
-                          size: 25,
-                        ),
-                      ],
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: Stack(
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "حالة العمل",
+                        style: TextStyle(color: Colors.grey, fontSize: 6),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          if (state)
+                            Text(
+                              "يعمل",
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 9,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          if (state == false)
+                            Text(
+                              "لا يعمل",
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 9,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  CircleAvatar(
+                    backgroundColor: Colors.white,
+                    radius: 8,
+                    child: Container(
+                      width: 8,
+                      height: 8,
+                      decoration: BoxDecoration(
+                        color: state ? Colors.lightGreen : Colors.blueGrey,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                     ),
                   ),
+                ],
+              ),
+            ),
           ),
         ),
       ),
