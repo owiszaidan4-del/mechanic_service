@@ -1,9 +1,22 @@
+import 'package:car_serves/views/notification/AllNotifecation.dart';
+import 'package:car_serves/views/notification/Offers.dart';
+import 'package:car_serves/views/notification/worring.dart';
+import 'package:car_serves/widget/notifecation/Notification_divider_Animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class Notifacation extends StatelessWidget {
+class Notifacation extends StatefulWidget {
+  @override
+  State<Notifacation> createState() => _NotifacationState();
+}
+
+class _NotifacationState extends State<Notifacation> {
+  double _currentIndent = 10;
+  int index = 0;
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       appBar: AppBar(title: Text("الرسائل"), centerTitle: true),
       body: Directionality(
@@ -14,88 +27,49 @@ class Notifacation extends StatelessWidget {
             SizedBox(
               height: 30,
               child: DefaultTextStyle(
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 10,
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: notification_ListOf_TypeMessage(),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    _menuItem("الكل", 10, 0),
+                    _menuItem("تنبيهات", width * 0.35, 1),
+                    _menuItem("عروض", width * 0.7, 2),
+                  ],
                 ),
               ),
             ),
-            Divider(color: Colors.grey, height: 20, thickness: 3),
-            Notification_NumAndType_Notification(),
-            Divider(color: Colors.grey, height: 20, thickness: 1),
-            Notification_ListOf_Messages(),
+
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.easeInOut,
+              child: Notification_divider_Animation(
+                currentIndent: _currentIndent,
+                width: width,
+              ),
+            ),
+            IndexedStack(
+              index: index,
+              children: [Allnotifecation(), Worring(), Offers()],
+            ),
           ],
         ),
       ),
     );
   }
-}
 
-class Notification_ListOf_Messages extends StatelessWidget {
-  const Notification_ListOf_Messages({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.5,
-      child: ListView.builder(
-        itemCount: 1,
-        padding: EdgeInsets.all(8),
-        itemBuilder: (context, index) {
-          List l = [];
-          if (l.isNotEmpty) {
-            return Container();
-          } else {
-            return Text(
-              "لايوجد رسائل لغاية الان",
-              style: TextStyle(color: Colors.grey),
-            );
-          }
-        },
-      ),
-    );
-  }
-}
-
-class Notification_NumAndType_Notification extends StatelessWidget {
-  const Notification_NumAndType_Notification({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        Text("جميع الرسائل"),
-        Container(
-          padding: EdgeInsets.all(5),
-          decoration: BoxDecoration(
-            color: Colors.grey.withOpacity(0.3),
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: Text("0 غير مقروء"),
-        ),
-      ],
-    );
-  }
-}
-
-class notification_ListOf_TypeMessage extends StatelessWidget {
-  const notification_ListOf_TypeMessage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        GestureDetector(onTap: () {}, child: Text("جميع الرسائل(0)")),
-        GestureDetector(onTap: () {}, child: Text("تنبيهات(0)")),
-        GestureDetector(onTap: () {}, child: Text("العروض(0)")),
-      ],
+  Widget _menuItem(String title, double indentValue, int index) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          this.index = index;
+          _currentIndent = indentValue;
+        });
+      },
+      child: Text(title),
     );
   }
 }
