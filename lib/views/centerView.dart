@@ -6,6 +6,7 @@ import 'package:car_serves/widget/ItemsOfGradeProfilePage.dart';
 import 'package:car_serves/widget/Menue.dart';
 import 'package:car_serves/widget/MenueButton.dart';
 import 'package:car_serves/widget/MenueOfCenterView.dart';
+import 'package:car_serves/widget/SheetButtom.dart';
 import 'package:car_serves/widget/StateOfWork.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -66,32 +67,7 @@ class _CenterviewState extends State<Centerview> {
             items: items,
             transform: Matrix4.translationValues(isOpenMenue ? 0 : 300, 0, 0),
           ),
-          DraggableScrollableSheet(
-            initialChildSize: 0.25,
-            minChildSize: 0.15,
-            maxChildSize: 0.7,
-            builder: (context, scrollController) {
-              return ListView(
-                controller: scrollController,
-                children: [
-                  Container(
-                    height: MediaQuery.of(context).size.height * 0.8,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20),
-                      boxShadow: [
-                        BoxShadow(
-                          blurRadius: 5,
-                          color: Colors.black,
-                          blurStyle: BlurStyle.outer,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              );
-            },
-          ),
+          SheetButtom(),
         ],
       ),
     );
