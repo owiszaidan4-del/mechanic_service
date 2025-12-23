@@ -18,31 +18,35 @@ class Centerview extends StatefulWidget {
 
 class _CenterviewState extends State<Centerview> {
   bool isOpenMenue = false;
-  List<ItemsOfGradeProfilePage> items = [
-    ItemsOfGradeProfilePage(
-      onTap: () {},
-      desc: "الاداء الشهري",
-      image: AssetImage("asset/good-feedback.png"),
-    ),
-    ItemsOfGradeProfilePage(
-      onTap: () {},
-      desc: "الاشعارات",
-      image: AssetImage("asset/message-notification.png"),
-    ),
-    ItemsOfGradeProfilePage(
-      onTap: () {},
-      desc: "تواصل معنا",
-      image: AssetImage("asset/live-chat.png"),
-    ),
 
-    ItemsOfGradeProfilePage(
-      onTap: () {},
-      desc: "المدفوعات",
-      image: AssetImage("asset/money.png"),
-    ),
-  ];
   @override
   Widget build(BuildContext context) {
+    List<ItemsOfGradeProfilePage> items = [
+      ItemsOfGradeProfilePage(
+        onTap: () {},
+        desc: "الاداء الشهري",
+        image: AssetImage("asset/good-feedback.png"),
+      ),
+      ItemsOfGradeProfilePage(
+        onTap: () {
+          Navigator.pushNamed(context, "notifacation");
+        },
+        desc: "الاشعارات",
+        image: AssetImage("asset/message-notification.png"),
+      ),
+      ItemsOfGradeProfilePage(
+        onTap: () {},
+        desc: "تواصل معنا",
+        image: AssetImage("asset/live-chat.png"),
+      ),
+
+      ItemsOfGradeProfilePage(
+        onTap: () {},
+        desc: "المدفوعات",
+        image: AssetImage("asset/money.png"),
+      ),
+    ];
+
     return Scaffold(
       body: Stack(
         children: [
