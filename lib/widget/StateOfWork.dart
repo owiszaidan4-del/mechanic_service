@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+ValueNotifier<bool> stateOfWOrk = ValueNotifier(false);
+
 class StateOfWork extends StatefulWidget {
   const StateOfWork({super.key});
 
@@ -19,11 +21,13 @@ class _StateOfWorkState extends State<StateOfWork> {
           onTap: () {
             setState(() {
               state = !state;
+              stateOfWOrk.value = state;
             });
           },
           child: AnimatedContainer(
             duration: Duration(milliseconds: 300),
             curve: Curves.easeInOut,
+
             height: MediaQuery.of(context).size.height * 0.07,
             width: MediaQuery.of(context).size.width * 0.2,
             decoration: BoxDecoration(
