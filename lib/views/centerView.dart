@@ -23,7 +23,9 @@ class _CenterviewState extends State<Centerview> {
   Widget build(BuildContext context) {
     List<ItemsOfGradeProfilePage> items = [
       ItemsOfGradeProfilePage(
-        onTap: () {},
+        onTap: () {
+          Navigator.pushNamed(context, "performance");
+        },
         desc: "الاداء الشهري",
         image: AssetImage("asset/good-feedback.png"),
       ),

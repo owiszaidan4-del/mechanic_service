@@ -2,6 +2,7 @@ import 'package:car_serves/constant.dart';
 import 'package:car_serves/views/centerView.dart';
 import 'package:car_serves/views/mapView.dart';
 import 'package:car_serves/views/notifacation.dart';
+import 'package:car_serves/views/performance.dart';
 import 'package:car_serves/views/profileView.dart';
 import 'package:flutter/material.dart';
 
@@ -25,7 +26,10 @@ class _Homeview2State extends State<Homeview2> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      routes: {"notifacation": (context) => Notifacation()},
+      routes: {
+        "notifacation": (context) => Notifacation(),
+        "performance": (context) => Performance(),
+      },
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: Centerview(),

@@ -72,6 +72,11 @@ flutter:
     - asset/good-feedback.png
     - asset/live-chat.png
     - asset/menu.png
+    - asset/christmas-stars.png
+    - asset/clock-hands.png
+    - asset/check.png
+    - asset/cheke_double.png
+    - asset/condecoration.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
