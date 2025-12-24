@@ -77,6 +77,7 @@ flutter:
     - asset/check.png
     - asset/cheke_double.png
     - asset/condecoration.png
+    - asset/circle.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
