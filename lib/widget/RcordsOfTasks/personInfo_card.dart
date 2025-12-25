@@ -6,6 +6,8 @@ class personInfo_card extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: MediaQuery.of(context).size.width * 0.6,
+      height: MediaQuery.of(context).size.height * 0.3,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -23,8 +25,8 @@ class personInfo_card extends StatelessWidget {
               Icon(Icons.badge, color: Colors.blue),
               SizedBox(width: 8),
               Text(
-                'هوية الطلب',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                'معلومات العميل',
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
               ),
             ],
           ),
@@ -36,8 +38,11 @@ class personInfo_card extends StatelessWidget {
             children: [
               Icon(Icons.person, color: Colors.blue),
               SizedBox(width: 10),
-              Text('الاسم: '),
-              Text('أويس أحمد', style: TextStyle(fontWeight: FontWeight.bold)),
+              Text('الاسم: ', style: TextStyle(fontWeight: FontWeight.bold)),
+              Text(
+                'أويس ابو زيدان',
+                style: TextStyle(fontSize: 10, overflow: TextOverflow.ellipsis),
+              ),
             ],
           ),
 
@@ -48,8 +53,8 @@ class personInfo_card extends StatelessWidget {
             children: [
               Icon(Icons.phone, color: Colors.blue),
               SizedBox(width: 10),
-              Text('الهاتف: '),
-              Text('0791234567', style: TextStyle(fontWeight: FontWeight.bold)),
+              Text('الهاتف: ', style: TextStyle(fontWeight: FontWeight.bold)),
+              Text('0791234567', style: TextStyle(fontSize: 10)),
             ],
           ),
 
@@ -60,10 +65,10 @@ class personInfo_card extends StatelessWidget {
             children: [
               Icon(Icons.car_repair, color: Colors.blue),
               SizedBox(width: 10),
-              Text('المشكلة: '),
+              Text('المشكلة: ', style: TextStyle(fontWeight: FontWeight.bold)),
               Text(
                 'عطل بالمحرك',
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 10, overflow: TextOverflow.ellipsis),
               ),
             ],
           ),
