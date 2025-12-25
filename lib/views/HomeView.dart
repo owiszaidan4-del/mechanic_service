@@ -1,4 +1,5 @@
 import 'package:car_serves/constant.dart';
+import 'package:car_serves/views/PaysRecord.dart';
 import 'package:car_serves/views/centerView.dart';
 import 'package:car_serves/views/mapView.dart';
 import 'package:car_serves/views/notifacation.dart';
@@ -29,6 +30,7 @@ class _Homeview2State extends State<Homeview2> {
       routes: {
         "notifacation": (context) => Notifacation(),
         "performance": (context) => Performance(),
+        "Paysrecord": (context) => Paysrecord(),
       },
       debugShowCheckedModeBanner: false,
       home: Scaffold(

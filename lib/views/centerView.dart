@@ -43,7 +43,9 @@ class _CenterviewState extends State<Centerview> {
       ),
 
       ItemsOfGradeProfilePage(
-        onTap: () {},
+        onTap: () {
+          Navigator.pushNamed(context, "Paysrecord");
+        },
         desc: "المدفوعات",
         image: AssetImage("asset/money.png"),
       ),
