@@ -1,3 +1,4 @@
+import 'package:car_serves/views/RecordTasks.dart';
 import 'package:flutter/material.dart';
 
 class ListOf_RecordOfPays extends StatelessWidget {
@@ -14,14 +15,15 @@ class ListOf_RecordOfPays extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(
+        Navigator.push(
           context,
-          "RecordTask",
-          arguments: {
-            "date": date,
-            "totPrice": totPrice,
-            "numOfTask": numOfTask,
-          },
+          MaterialPageRoute(
+            builder: (context) => RecordTasks(
+              date: date,
+              numOfTask: numOfTask,
+              totPrice: totPrice,
+            ),
+          ),
         );
       },
       child: DefaultTextStyle(
