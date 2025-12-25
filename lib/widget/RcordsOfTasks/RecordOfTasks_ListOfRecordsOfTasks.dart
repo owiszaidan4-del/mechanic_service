@@ -23,7 +23,11 @@ class RecordOfTasks_ListOfRecordsOfTasks extends StatelessWidget {
               textDirection: TextDirection.rtl,
               child: AlertDialog(
                 backgroundColor: Colors.black.withOpacity(0.0),
-                content: personInfo_card(),
+                content: personInfo_card(
+                  name: 'أويس ابو زيدان',
+                  phoneNumber: '0791234567',
+                  proplemVechel: 'عطل بالمحرك',
+                ),
               ),
             );
           },

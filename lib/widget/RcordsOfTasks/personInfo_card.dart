@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 
 class personInfo_card extends StatelessWidget {
-  const personInfo_card({super.key});
-
+  const personInfo_card({
+    super.key,
+    required this.name,
+    required this.phoneNumber,
+    required this.proplemVechel,
+  });
+  final String name;
+  final String phoneNumber;
+  final String proplemVechel;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -18,7 +25,7 @@ class personInfo_card extends StatelessWidget {
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
+        children: [
           /// العنوان
           Row(
             children: [
@@ -40,7 +47,7 @@ class personInfo_card extends StatelessWidget {
               SizedBox(width: 10),
               Text('الاسم: ', style: TextStyle(fontWeight: FontWeight.bold)),
               Text(
-                'أويس ابو زيدان',
+                name,
                 style: TextStyle(fontSize: 10, overflow: TextOverflow.ellipsis),
               ),
             ],
@@ -54,7 +61,7 @@ class personInfo_card extends StatelessWidget {
               Icon(Icons.phone, color: Colors.blue),
               SizedBox(width: 10),
               Text('الهاتف: ', style: TextStyle(fontWeight: FontWeight.bold)),
-              Text('0791234567', style: TextStyle(fontSize: 10)),
+              Text(phoneNumber, style: TextStyle(fontSize: 10)),
             ],
           ),
 
@@ -67,7 +74,7 @@ class personInfo_card extends StatelessWidget {
               SizedBox(width: 10),
               Text('المشكلة: ', style: TextStyle(fontWeight: FontWeight.bold)),
               Text(
-                'عطل بالمحرك',
+                proplemVechel,
                 style: TextStyle(fontSize: 10, overflow: TextOverflow.ellipsis),
               ),
             ],
