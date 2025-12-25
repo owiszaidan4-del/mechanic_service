@@ -13,15 +13,28 @@ class MenueOfCenterView extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomScrollView(
       slivers: [
-        topConteanerProfilePage(),
+        topConteanerProfilePage(pop: false),
         GridOfMenue(items: items),
         catogriesOfMenue(
+          onTap: () {
+            Navigator.pushNamed(context, "ProfileView");
+          },
           text: "ملفي الشخصي",
           icon: Icon(Icons.person_2_rounded),
         ),
-        catogriesOfMenue(text: "حوافز", icon: Icon(Icons.money)),
+        catogriesOfMenue(
+          onTap: () {
+            Navigator.pushNamed(context, "Awards");
+          },
+          text: "حوافز",
+          icon: Icon(Icons.money),
+        ),
 
-        catogriesOfMenue(text: "الاعدادات", icon: Icon(Icons.settings)),
+        catogriesOfMenue(
+          onTap: () {},
+          text: "الاعدادات",
+          icon: Icon(Icons.settings),
+        ),
       ],
     );
   }

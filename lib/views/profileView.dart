@@ -1,24 +1,30 @@
 import 'package:car_serves/constant.dart';
 import 'package:car_serves/widget/ItemsOfGradeProfilePage.dart';
+import 'package:car_serves/widget/ItemsOfGradeProfilePage2.dart';
 import 'package:car_serves/widget/topConteanerProfilePage.dart';
 import 'package:flutter/material.dart';
 
 class Profileview extends StatelessWidget {
-  List<ItemsOfGradeProfilePage> items = [
-    ItemsOfGradeProfilePage(
+  List<ItemsOfGradeProfilePage2> items = [
+    ItemsOfGradeProfilePage2(
       onTap: () {},
-      desc: "الاداء الشهري",
-      image: AssetImage("asset/icons8-crown-50.png"),
+      desc: "الهوية الشخصية",
+      image: AssetImage("asset/personal-info.png"),
     ),
-    ItemsOfGradeProfilePage(
+    ItemsOfGradeProfilePage2(
       onTap: () {},
-      desc: "الاشعارات",
-      image: AssetImage("asset/Alarm.png"),
+      desc: "الحساب",
+      image: AssetImage("asset/bank-acount.png"),
     ),
-    ItemsOfGradeProfilePage(
+    ItemsOfGradeProfilePage2(
       onTap: () {},
-      desc: "تواصل معنا",
-      image: AssetImage("asset/callCenter.png"),
+      desc: "عدم المحكومية",
+      image: AssetImage("asset/google-docs.png"),
+    ),
+    ItemsOfGradeProfilePage2(
+      onTap: () {},
+      desc: "وثائق",
+      image: AssetImage("asset/authenticity.png"),
     ),
   ];
   @override
@@ -29,7 +35,7 @@ class Profileview extends StatelessWidget {
         style: TextStyle(color: Colors.white),
         child: CustomScrollView(
           slivers: [
-            topConteanerProfilePage(),
+            topConteanerProfilePage(pop: true),
 
             SliverGrid.builder(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -40,6 +46,16 @@ class Profileview extends StatelessWidget {
                 return items[index];
               },
               itemCount: items.length,
+            ),
+
+            SliverToBoxAdapter(child: Divider()),
+            SliverToBoxAdapter(
+              child: Center(
+                child: Text(
+                  "معلومات اخرى",
+                  style: TextStyle(color: Colors.blueAccent),
+                ),
+              ),
             ),
           ],
         ),

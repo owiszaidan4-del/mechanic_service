@@ -2,8 +2,8 @@ import 'package:car_serves/constant.dart';
 import 'package:flutter/material.dart';
 
 class topConteanerProfilePage extends StatelessWidget {
-  const topConteanerProfilePage({super.key});
-
+  const topConteanerProfilePage({super.key, required this.pop});
+  final bool pop;
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
@@ -23,10 +23,32 @@ class topConteanerProfilePage extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            crossAxisAlignment: CrossAxisAlignment.center,
             spacing: 8,
 
             children: [
+              if (pop)
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Align(
+                      alignment: Alignment.topLeft,
+                      child: Container(
+                        height: 30,
+                        width: 30,
+                        alignment: Alignment.centerRight,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: Icon(Icons.arrow_back_ios),
+                      ),
+                    ),
+                  ),
+                ),
               Directionality(
                 textDirection: TextDirection.rtl,
                 child: Expanded(

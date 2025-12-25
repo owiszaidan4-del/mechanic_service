@@ -79,6 +79,11 @@ flutter:
     - asset/condecoration.png
     - asset/circle.png
     - asset/money-bag.png
+    - asset/bank-acount.png
+    - asset/google-docs.png
+    - asset/personal-info.png
+    - asset/authenticity.png
+    - asset/trophy.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
