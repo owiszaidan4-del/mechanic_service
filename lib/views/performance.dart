@@ -15,14 +15,7 @@ class Performance extends StatelessWidget {
           child: Column(
             spacing: 10,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Performance_Arrow_left_rhight(left: false),
-                  Text("الشهر الحالي"),
-                  Performance_Arrow_left_rhight(left: true),
-                ],
-              ),
+              Left_Right_Button(text: "الشهر الحالي"),
               Performance_gridView(),
               Performance_Statment(),
               Container(
@@ -34,6 +27,22 @@ class Performance extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class Left_Right_Button extends StatelessWidget {
+  const Left_Right_Button({super.key, required this.text});
+  final String text;
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Performance_Arrow_left_rhight(left: false),
+        Text(text),
+        Performance_Arrow_left_rhight(left: true),
+      ],
     );
   }
 }
