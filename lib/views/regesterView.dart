@@ -83,7 +83,7 @@ class _RegesterviewState extends State<Regesterview> {
                   customTextFeild(
                     inputFormatters: filtterPasswordText,
                     onSaved: (val) {
-                      password = val;
+                      confirmPassword = val;
                     },
                     validator: validatPassword,
                     hint: "تاكيد كلمة السر",

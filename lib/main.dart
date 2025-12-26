@@ -27,7 +27,6 @@ class car_serves extends StatelessWidget {
         'HomeView': (context) => Homeview2(),
         "regesterView": (context) => Regesterview(),
         "signInView": (context) => Homeview1(),
-        "Regester2": (context) => Regester2(),
       },
       debugShowCheckedModeBanner: false,
       home: Homeview1(),

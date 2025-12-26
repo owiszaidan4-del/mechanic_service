@@ -112,105 +112,112 @@ class _Regester2State extends State<Regester2> {
   ];
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: NameApp(size: MediaQuery.of(context).size.width * 0.05),
-      ),
-      body: Center(
-        child: Form(
-          autovalidateMode: autovalidateMode,
-          key: globalKey,
-          child: SingleChildScrollView(
-            child: Column(
-              spacing: 10,
-
-              children: [
-                logoApp(),
-
-                customTextFeild(
-                  inputFormatters: filtterFullNameText,
-                  hint: "اسم ورشة العمل",
-                  icon: Icon(Icons.work),
-                  onSaved: (val) {
-                    workShopName = val;
-                  },
-                  validator: fullNameValidat,
-                ),
-                customTextFeild(
-                  inputFormatters: filtterFullNameText,
-                  hint: "مكان ورشة العمل",
-                  icon: Icon(Icons.home_work),
-                  onSaved: (val) {
-                    workadress = val;
-                  },
-                  validator: fullNameValidat,
-                ),
-                Row(
-                  spacing: 10,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Customdropdowncityname(
-                      validator: dropdownValidat,
-                      widht: MediaQuery.of(context).size.width * 0.4,
-                      hight: MediaQuery.of(context).size.height * 0.09,
-                      lable: "من اي مدينة؟",
-                      onSaved: (value) {
-                        city = value;
-                      },
-                      itemsCity: itemsCity,
-                    ),
-                    Customdropdowncityname(
-                      validator: dropdownValidat,
-                      widht: MediaQuery.of(context).size.width * 0.4,
-                      hight: MediaQuery.of(context).size.height * 0.09,
-                      lable: "الحد الاعلى للمسافة km",
-                      onSaved: (value) {
-                        area = value;
-                      },
-                      itemsCity: itemsArea,
-                    ),
-                  ],
-                ),
-                Customdropdowncityname(
-                  validator: dropdownValidat,
-                  widht: MediaQuery.of(context).size.width * 0.8,
-                  hight: MediaQuery.of(context).size.height * 0.09,
-                  lable: "...مختص في",
-                  onSaved: (value) {
-                    specialization = value;
-                  },
-                  itemsCity: itemsspecialization,
-                ),
-                button_signIn(
-                  text: "انشاء الحساب",
-                  onTap: () {
-                    if (globalKey.currentState!.validate()) {
-                      globalKey.currentState!.save();
-                      BlocProvider.of<CubitRegesterauthtransaction>(
-                        context,
-                      ).sendRegesterInfo(
-                        email: widget.email,
-                        password: widget.password,
-                        phoneNumber: widget.phoneNumber,
-                        confirmPassword: widget.confirmPassword,
-                        fullName: widget.fullName,
-                        workShopName: workShopName,
-                        workadress: workadress,
-                        city: city,
-                        area: area,
-                      );
-                    } else {
-                      setState(() {
-                        autovalidateMode = AutovalidateMode.always;
-                      });
-                    }
-                  },
-                ),
-              ],
+    return BlocProvider(
+      create: (context) => CubitRegesterauthtransaction(),
+      child: Builder(
+        builder: (context) {
+          return Scaffold(
+            appBar: AppBar(
+              centerTitle: true,
+              title: NameApp(size: MediaQuery.of(context).size.width * 0.05),
             ),
-          ),
-        ),
+            body: Center(
+              child: Form(
+                autovalidateMode: autovalidateMode,
+                key: globalKey,
+                child: SingleChildScrollView(
+                  child: Column(
+                    spacing: 10,
+
+                    children: [
+                      logoApp(),
+
+                      customTextFeild(
+                        inputFormatters: filtterFullNameText,
+                        hint: "اسم ورشة العمل",
+                        icon: Icon(Icons.work),
+                        onSaved: (val) {
+                          workShopName = val;
+                        },
+                        validator: fullNameValidat,
+                      ),
+                      customTextFeild(
+                        inputFormatters: filtterFullNameText,
+                        hint: "مكان ورشة العمل",
+                        icon: Icon(Icons.home_work),
+                        onSaved: (val) {
+                          workadress = val;
+                        },
+                        validator: fullNameValidat,
+                      ),
+                      Row(
+                        spacing: 10,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Customdropdowncityname(
+                            validator: dropdownValidat,
+                            widht: MediaQuery.of(context).size.width * 0.4,
+                            hight: MediaQuery.of(context).size.height * 0.09,
+                            lable: "من اي مدينة؟",
+                            onSaved: (value) {
+                              city = value;
+                            },
+                            itemsCity: itemsCity,
+                          ),
+                          Customdropdowncityname(
+                            validator: dropdownValidat,
+                            widht: MediaQuery.of(context).size.width * 0.4,
+                            hight: MediaQuery.of(context).size.height * 0.09,
+                            lable: "الحد الاعلى للمسافة km",
+                            onSaved: (value) {
+                              area = value;
+                            },
+                            itemsCity: itemsArea,
+                          ),
+                        ],
+                      ),
+                      Customdropdowncityname(
+                        validator: dropdownValidat,
+                        widht: MediaQuery.of(context).size.width * 0.8,
+                        hight: MediaQuery.of(context).size.height * 0.09,
+                        lable: "...مختص في",
+                        onSaved: (value) {
+                          specialization = value;
+                        },
+                        itemsCity: itemsspecialization,
+                      ),
+                      button_signIn(
+                        text: "انشاء الحساب",
+                        onTap: () {
+                          if (globalKey.currentState!.validate()) {
+                            globalKey.currentState!.save();
+                            BlocProvider.of<CubitRegesterauthtransaction>(
+                              context,
+                            ).sendRegesterInfo(
+                              email: widget.email,
+                              password: widget.password,
+                              phoneNumber: widget.phoneNumber,
+                              confirmPassword: widget.confirmPassword,
+                              fullName: widget.fullName,
+                              workShopName: workShopName,
+                              workadress: workadress,
+                              city: city,
+                              area: area,
+                            );
+                          } else {
+                            setState(() {
+                              autovalidateMode = AutovalidateMode.always;
+                            });
+                          }
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }

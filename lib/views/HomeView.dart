@@ -37,65 +37,7 @@ class _Homeview2State extends State<Homeview2> {
         "Awards": (context) => Awards(),
       },
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: Centerview(),
-
-        // IndexedStack(index: index, children: pages),
-        // bottomNavigationBar: Container(
-        //   height: MediaQuery.of(context).size.height * 0.08,
-
-        //   decoration: BoxDecoration(
-        //     color: Colors.white.withOpacity(0.3),
-        //     borderRadius: BorderRadius.circular(12),
-        //   ),
-        //   child: Row(
-        //     mainAxisAlignment: MainAxisAlignment.spaceAround,
-        //     children: [
-        //       IconButton(
-        //         icon: Icon(Icons.home),
-        //         onPressed: () {
-        //           setState(() {
-        //             index = 0;
-        //             resetColor(index);
-        //           });
-        //         },
-        //         color: iconsColor[0],
-        //       ),
-
-        //       // IconButton(
-        //       //   icon: Icon(Icons.attach_money),
-        //       //   onPressed: () {
-        //       //     setState(() {
-        //       //       index = 1;
-        //       //       resetColor(index);
-        //       //     });
-        //       //   },
-        //       //   color: iconsColor[2],
-        //       // ),
-        //       // IconButton(
-        //       //   icon: Icon(Icons.menu),
-        //       //   onPressed: () {
-        //       //     setState(() {
-        //       //       index = 2;
-        //       //       resetColor(index);
-        //       //     });
-        //       //   },
-        //       //   color: iconsColor[3],
-        //       // ),
-        //       // IconButton(
-        //       //   icon: Icon(Icons.person),
-        //       //   onPressed: () {
-        //       //     setState(() {
-        //       //       index = 1;
-        //       //       resetColor(index);
-        //       //     });
-        //       //   },
-        //       //   color: iconsColor[1],
-        //       // ),
-        //     ],
-        //   ),
-        // ),
-      ),
+      home: Scaffold(body: Centerview()),
     );
   }
 
