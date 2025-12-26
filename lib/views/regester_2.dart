@@ -1,3 +1,4 @@
+import 'package:car_serves/cubits/SignIn_Regester/cubit_RegesterAuthTransaction.dart';
 import 'package:car_serves/widget/CustomDropDownCityName.dart';
 import 'package:car_serves/widget/NameApp.dart';
 import 'package:car_serves/widget/button_signIn.dart';
@@ -6,8 +7,21 @@ import 'package:car_serves/widget/logoApp.dart';
 import 'package:car_serves/widget/statment_open.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Regester2 extends StatefulWidget {
+  Regester2({
+    required this.email,
+    required this.password,
+    required this.phoneNumber,
+    required this.confirmPassword,
+    required this.fullName,
+  });
+  final String email;
+  final String password;
+  final String phoneNumber;
+  final String confirmPassword;
+  final String fullName;
   @override
   State<Regester2> createState() => _Regester2State();
 }
@@ -19,6 +33,9 @@ class _Regester2State extends State<Regester2> {
 
   String? city;
   String? area;
+  //
+
+  //
   final GlobalKey<FormState> globalKey = GlobalKey<FormState>();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
 
@@ -170,6 +187,19 @@ class _Regester2State extends State<Regester2> {
                   onTap: () {
                     if (globalKey.currentState!.validate()) {
                       globalKey.currentState!.save();
+                      BlocProvider.of<CubitRegesterauthtransaction>(
+                        context,
+                      ).sendRegesterInfo(
+                        email: widget.email,
+                        password: widget.password,
+                        phoneNumber: widget.phoneNumber,
+                        confirmPassword: widget.confirmPassword,
+                        fullName: widget.fullName,
+                        workShopName: workShopName,
+                        workadress: workadress,
+                        city: city,
+                        area: area,
+                      );
                     } else {
                       setState(() {
                         autovalidateMode = AutovalidateMode.always;

@@ -1,3 +1,4 @@
+import 'package:car_serves/views/regester_2.dart';
 import 'package:car_serves/widget/NameApp.dart';
 import 'package:car_serves/widget/button_signIn.dart';
 import 'package:car_serves/widget/customTextFeild.dart';
@@ -92,9 +93,21 @@ class _RegesterviewState extends State<Regesterview> {
                   button_signIn(
                     text: "...تابع",
                     onTap: () {
-                      if (!globalKey.currentState!.validate()) {
+                      if (globalKey.currentState!.validate()) {
                         globalKey.currentState!.save();
-                        Navigator.pushNamed(context, "Regester2");
+
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Regester2(
+                              email: email!,
+                              password: password!,
+                              phoneNumber: phoneNumber!,
+                              confirmPassword: confirmPassword!,
+                              fullName: fullName!,
+                            ),
+                          ),
+                        );
                       } else {
                         setState(() {
                           autovalidateMode = AutovalidateMode.always;
