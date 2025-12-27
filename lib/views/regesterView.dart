@@ -1,3 +1,7 @@
+import 'dart:developer';
+
+import 'package:car_serves/cubits/SignIn_Regester/States_RegesterAuthTransaction.dart';
+import 'package:car_serves/cubits/SignIn_Regester/cubit_RegesterAuthTransaction.dart';
 import 'package:car_serves/views/regester_2.dart';
 import 'package:car_serves/widget/NameApp.dart';
 import 'package:car_serves/widget/button_signIn.dart';
@@ -7,6 +11,7 @@ import 'package:car_serves/widget/statment_goToRegester.dart';
 import 'package:car_serves/widget/statment_open.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Regesterview extends StatefulWidget {
   @override
@@ -15,6 +20,8 @@ class Regesterview extends StatefulWidget {
 
 class _RegesterviewState extends State<Regesterview> {
   final GlobalKey<FormState> globalKey = GlobalKey<FormState>();
+  final GlobalKey<FormFieldState<String>> emailKey =
+      GlobalKey<FormFieldState<String>>();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
   String? email;
   String? password;
@@ -60,6 +67,7 @@ class _RegesterviewState extends State<Regesterview> {
                   ),
                   /////////email
                   customTextFeild(
+                    key: emailKey,
                     inputFormatters: filtterEmailText,
                     hint: "الايميل",
                     icon: Icon(Icons.email),
@@ -132,6 +140,16 @@ class _RegesterviewState extends State<Regesterview> {
   }
 
   String? EmailValidat(value) {
+    // BlocListener<CubitRegesterauthtransaction, StatesRegesterauthtransaction>(
+    //   listener: (context, state) {
+    //     if (state is state_failed) {
+    //       log("owissssssssssssssssssssssss");
+    //       if (state.typeFailed.contains("email")) {
+    //         emailKey.currentState!.reset();
+    //       }
+    //     }
+    //   },
+    // );
     if (value?.isEmpty ?? true) {
       return "pleas enter Email";
     } else if (!value!.contains('@') || !value.endsWith(".com")) {

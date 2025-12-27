@@ -72,4 +72,19 @@ class CubitRegesterauthtransaction
         .then((value) => log("User Added"))
         .catchError((error) => log("Failed to add user: $error"));
   }
+
+  SignInAuth({required String email, required String password}) async {
+    try {
+      log("owowow");
+      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      emit(state_success());
+    } on FirebaseAuthException catch (e) {
+      emit(state_failed(typeFailed: "بيانات الدخول غير صحيحة"));
+      log(e.code.toString());
+    }
+  }
 }

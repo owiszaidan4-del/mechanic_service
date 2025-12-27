@@ -10,6 +10,7 @@ import 'package:car_serves/widget/SheetButtom.dart';
 import 'package:car_serves/widget/StateOfWork.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class Centerview extends StatefulWidget {
   @override
@@ -18,6 +19,18 @@ class Centerview extends StatefulWidget {
 
 class _CenterviewState extends State<Centerview> {
   bool isOpenMenue = false;
+  @override
+  void initState() async {
+    // TODO: implement initState
+    super.initState();
+    PermissionStatus state = await Permission.location.status;
+
+    if (state.isDenied || state.isRestricted) {
+      Permission.location.request();
+    } else if (state.isPermanentlyDenied) {
+      openAppSettings();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

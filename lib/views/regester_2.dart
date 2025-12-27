@@ -1,3 +1,4 @@
+import 'package:car_serves/cubits/SignIn_Regester/States_RegesterAuthTransaction.dart';
 import 'package:car_serves/cubits/SignIn_Regester/cubit_RegesterAuthTransaction.dart';
 import 'package:car_serves/widget/CustomDropDownCityName.dart';
 import 'package:car_serves/widget/NameApp.dart';
@@ -112,20 +113,36 @@ class _Regester2State extends State<Regester2> {
   ];
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => CubitRegesterauthtransaction(),
-      child: Builder(
-        builder: (context) {
-          return Scaffold(
-            appBar: AppBar(
-              centerTitle: true,
-              title: NameApp(size: MediaQuery.of(context).size.width * 0.05),
-            ),
-            body: Center(
-              child: Form(
-                autovalidateMode: autovalidateMode,
-                key: globalKey,
-                child: SingleChildScrollView(
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: NameApp(size: MediaQuery.of(context).size.width * 0.05),
+      ),
+      body: Center(
+        child: Form(
+          autovalidateMode: autovalidateMode,
+          key: globalKey,
+          child: SingleChildScrollView(
+            child:
+                BlocListener<
+                  CubitRegesterauthtransaction,
+                  StatesRegesterauthtransaction
+                >(
+                  listener: (context, state) {
+                    if (state is state_success) {
+                      Navigator.pushNamed(context, "HomeView");
+                    } else if (state is state_failed) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(state.typeFailed),
+                          duration: Duration(seconds: 10),
+                        ),
+                      );
+
+                      Navigator.pop(context);
+                    }
+                  },
+
                   child: Column(
                     spacing: 10,
 
@@ -162,6 +179,7 @@ class _Regester2State extends State<Regester2> {
                             onSaved: (value) {
                               city = value;
                             },
+
                             itemsCity: itemsCity,
                           ),
                           Customdropdowncityname(
@@ -214,35 +232,33 @@ class _Regester2State extends State<Regester2> {
                     ],
                   ),
                 ),
-              ),
-            ),
-          );
-        },
+          ),
+        ),
       ),
     );
   }
+}
 
-  String? dropdownValidat(val) {
-    if (val != null) {
-      return null;
-    } else {
-      return "هذا الحقل مطلوب";
-    }
+String? dropdownValidat(val) {
+  if (val != null) {
+    return null;
+  } else {
+    return "هذا الحقل مطلوب";
   }
+}
 
-  String? fullNameValidat(value) {
-    if (value?.isEmpty ?? true) {
-      return "هذا الحقل مطلوب";
-    } else {
-      return null;
-    }
+String? fullNameValidat(value) {
+  if (value?.isEmpty ?? true) {
+    return "هذا الحقل مطلوب";
+  } else {
+    return null;
   }
+}
 
-  List<TextInputFormatter> get filtterFullNameText {
-    return [
-      FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z ]')),
+List<TextInputFormatter> get filtterFullNameText {
+  return [
+    FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z ]')),
 
-      LengthLimitingTextInputFormatter(60),
-    ];
-  }
+    LengthLimitingTextInputFormatter(60),
+  ];
 }
