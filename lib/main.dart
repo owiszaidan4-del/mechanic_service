@@ -1,10 +1,14 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
+import 'package:car_serves/constant.dart';
 import 'package:car_serves/cubits/SignIn_Regester/cubit_RegesterAuthTransaction.dart';
 import 'package:car_serves/observes.dart';
 import 'package:car_serves/views/HomeView.dart';
 import 'package:car_serves/views/signIn.dart';
 import 'package:car_serves/views/regesterView.dart';
 import 'package:car_serves/views/regester_2.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,6 +18,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   Bloc.observer = Observes1();
+
   runApp(const car_serves());
 }
 
@@ -26,7 +31,7 @@ class car_serves extends StatelessWidget {
     return BlocProvider(
       create: (context) => CubitRegesterauthtransaction(),
       child: MaterialApp(
-        initialRoute: 'signInView',
+        initialRoute: currentUser == null ? 'signInView' : 'HomeView',
         theme: ThemeData(
           scaffoldBackgroundColor: const Color.fromARGB(239, 255, 255, 255),
         ),

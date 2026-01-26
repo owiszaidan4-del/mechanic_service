@@ -1,4 +1,5 @@
 import 'package:car_serves/constant.dart';
+import 'package:car_serves/cubits/SignIn_Regester/cubitGetAll__infoUsers.dart';
 import 'package:car_serves/views/Awards.dart';
 import 'package:car_serves/views/PaysRecord.dart';
 import 'package:car_serves/views/RecordTasks.dart';
@@ -8,6 +9,7 @@ import 'package:car_serves/views/notifacation.dart';
 import 'package:car_serves/views/performance.dart';
 import 'package:car_serves/views/profileView.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Homeview2 extends StatefulWidget {
   @override
@@ -28,16 +30,19 @@ class _Homeview2State extends State<Homeview2> {
   ];
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      routes: {
-        "notifacation": (context) => Notifacation(),
-        "performance": (context) => Performance(),
-        "Paysrecord": (context) => Paysrecord(),
-        "ProfileView": (context) => Profileview(),
-        "Awards": (context) => Awards(),
-      },
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(body: Centerview()),
+    return BlocProvider(
+      create: (context) => cubitGetAll__infoUsers(),
+      child: MaterialApp(
+        routes: {
+          "notifacation": (context) => Notifacation(),
+          "performance": (context) => Performance(),
+          "Paysrecord": (context) => Paysrecord(),
+          "ProfileView": (context) => Profileview(),
+          "Awards": (context) => Awards(),
+        },
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(body: Centerview()),
+      ),
     );
   }
 

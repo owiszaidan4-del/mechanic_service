@@ -43,46 +43,46 @@ class _Regester2State extends State<Regester2> {
   String? specialization;
   List<DropdownMenuItem<String>> itemsCity = const [
     DropdownMenuItem(
-      value: "A",
+      value: "Amman",
 
       alignment: AlignmentGeometry.center,
       child: Text("عمان", style: TextStyle(fontSize: 8)),
     ),
     DropdownMenuItem(
-      value: "ALZ",
+      value: "Alzarqa",
       alignment: AlignmentGeometry.center,
       child: Text("الزرقاء", style: TextStyle(fontSize: 8)),
     ),
     DropdownMenuItem(
-      value: "IRB",
+      value: "Irbid",
       alignment: AlignmentGeometry.center,
       child: Text("اربد", style: TextStyle(fontSize: 8)),
     ),
     DropdownMenuItem(
-      value: "MAD",
+      value: "Madba",
       alignment: AlignmentGeometry.center,
       child: Text("مأدبا", style: TextStyle(fontSize: 8)),
     ),
   ];
   List<DropdownMenuItem<String>> itemsArea = const [
     DropdownMenuItem(
-      value: "1",
+      value: "8",
 
       alignment: AlignmentGeometry.center,
       child: Text("8km", style: TextStyle(fontSize: 8)),
     ),
     DropdownMenuItem(
-      value: "2",
+      value: "16",
       alignment: AlignmentGeometry.center,
       child: Text("16km", style: TextStyle(fontSize: 8)),
     ),
     DropdownMenuItem(
-      value: "3",
+      value: "32",
       alignment: AlignmentGeometry.center,
       child: Text("32km", style: TextStyle(fontSize: 8)),
     ),
     DropdownMenuItem(
-      value: "index",
+      value: "10",
       alignment: AlignmentGeometry.center,
       child: Text("الافتراضي", style: TextStyle(fontSize: 8)),
     ),
@@ -221,6 +221,7 @@ class _Regester2State extends State<Regester2> {
                               workadress: workadress,
                               city: city,
                               area: area,
+                              specialization: specialization,
                             );
                           } else {
                             setState(() {
