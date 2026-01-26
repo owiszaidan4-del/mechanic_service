@@ -31,7 +31,7 @@ class _Homeview2State extends State<Homeview2> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => cubitGetAll__infoUsers(),
+      create: (context) => cubitGetAll__infoUsers()..getAllinfoUsers(),
       child: MaterialApp(
         routes: {
           "notifacation": (context) => Notifacation(),

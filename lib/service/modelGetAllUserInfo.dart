@@ -19,9 +19,9 @@ class Modelgetalluserinfo {
   factory Modelgetalluserinfo.fromJson(Map<String, dynamic> json) {
     return Modelgetalluserinfo(
       city: json["city"],
-      fullName: json["fullName"],
+      fullName: json["full_name"],
       phoneNumber: json["phoneNumber"],
-      registerDate: json["registerDate"],
+      registerDate: json["registerDate"].toString(),
       workShopName: json["workShopName"],
       workadress: json["workadress"],
       specialization: json["specialization"],
