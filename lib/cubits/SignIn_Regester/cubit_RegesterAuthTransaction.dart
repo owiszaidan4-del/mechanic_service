@@ -15,6 +15,7 @@ class CubitRegesterauthtransaction
   String? confirmPassword;
   String? fullName;
   String? workShopName;
+  String? specialization;
 
   String? workadress;
 
@@ -31,6 +32,7 @@ class CubitRegesterauthtransaction
     required workadress,
     required city,
     required area,
+    required specialization,
   }) async {
     try {
       final credential = await FirebaseAuth.instance
@@ -68,6 +70,9 @@ class CubitRegesterauthtransaction
           'city': city,
           "workShopName": workShopName,
           'workadress': workadress,
+          'registerDate': FieldValue.serverTimestamp(),
+          'email': email,
+          'specialization': specialization,
         })
         .then((value) => log("User Added"))
         .catchError((error) => log("Failed to add user: $error"));
