@@ -140,16 +140,6 @@ class _RegesterviewState extends State<Regesterview> {
   }
 
   String? EmailValidat(value) {
-    // BlocListener<CubitRegesterauthtransaction, StatesRegesterauthtransaction>(
-    //   listener: (context, state) {
-    //     if (state is state_failed) {
-    //       log("owissssssssssssssssssssssss");
-    //       if (state.typeFailed.contains("email")) {
-    //         emailKey.currentState!.reset();
-    //       }
-    //     }
-    //   },
-    // );
     if (value?.isEmpty ?? true) {
       return "pleas enter Email";
     } else if (!value!.contains('@') || !value.endsWith(".com")) {

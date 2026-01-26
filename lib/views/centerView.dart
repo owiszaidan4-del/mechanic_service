@@ -20,9 +20,13 @@ class Centerview extends StatefulWidget {
 class _CenterviewState extends State<Centerview> {
   bool isOpenMenue = false;
   @override
-  void initState() async {
+  void initState() {
     // TODO: implement initState
     super.initState();
+    checkPermution();
+  }
+
+  checkPermution() async {
     PermissionStatus state = await Permission.location.status;
 
     if (state.isDenied || state.isRestricted) {
