@@ -2,6 +2,7 @@ import 'package:car_serves/constant.dart';
 import 'package:car_serves/widget/StateOfWork.dart';
 import 'package:car_serves/widget/bottomSheet/BottomSheet_StateNotWorking.dart';
 import 'package:car_serves/widget/bottomSheet/bottomSheet_working.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class SheetButtom extends StatefulWidget {
@@ -42,10 +43,24 @@ class _SheetButtomState extends State<SheetButtom> {
                       ),
                     ],
                   ),
-                  child: ValueListenableBuilder(
-                    valueListenable: stateOfWOrk,
-                    builder: (context, value, child) {
-                      if (!value) {
+                  child: StreamBuilder(
+                    stream: FirebaseFirestore.instance
+                        .collection('users')
+                        .doc(currentUser!)
+                        .snapshots(),
+
+                    builder: (context, asyncSnapshot) {
+                      if (asyncSnapshot.hasError) {
+                        return Text('Something went wrong');
+                      }
+
+                      if (asyncSnapshot.connectionState ==
+                          ConnectionState.waiting) {
+                        return Text("Loading");
+                      }
+                      final stateOfWork = asyncSnapshot.data!
+                          .data()!["stateOfWork"];
+                      if (!stateOfWork) {
                         return BottomSheet_StateNotWorking(width: width);
                       } else {
                         return bottomSheet_working();
