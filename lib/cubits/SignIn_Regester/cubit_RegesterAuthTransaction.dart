@@ -34,6 +34,15 @@ class CubitRegesterauthtransaction
     required area,
     required specialization,
   }) async {
+    final String yearId = DateTime.now().year.toString();
+    final int userId;
+    final num = await FirebaseFirestore.instance
+        .collection("users")
+        .count()
+        .get();
+    final int numOfUser = (num.count! + 1);
+    userId = int.parse("$yearId" + (numOfUser.toString()));
+
     try {
       final credential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email!, password: password!);
@@ -63,6 +72,7 @@ class CubitRegesterauthtransaction
     return users
         .doc(currentUser)
         .set({
+          'userId': userId,
           'roule': 'mecanic',
           'full_name': fullName,
           'phoneNumber': phoneNumber,
@@ -73,6 +83,7 @@ class CubitRegesterauthtransaction
           'registerDate': FieldValue.serverTimestamp(),
           'email': email,
           'specialization': specialization,
+          "performance": 0,
         })
         .then((value) => log("User Added"))
         .catchError((error) => log("Failed to add user: $error"));

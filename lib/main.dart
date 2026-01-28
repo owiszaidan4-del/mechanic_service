@@ -31,7 +31,7 @@ class car_serves extends StatelessWidget {
     return BlocProvider(
       create: (context) => CubitRegesterauthtransaction(),
       child: MaterialApp(
-        initialRoute: currentUser == null ? 'signInView' : 'HomeView',
+        initialRoute: currentUser != null ? 'signInView' : 'HomeView',
         theme: ThemeData(
           scaffoldBackgroundColor: const Color.fromARGB(239, 255, 255, 255),
         ),

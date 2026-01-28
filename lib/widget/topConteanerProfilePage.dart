@@ -84,7 +84,7 @@ class topConteanerProfilePage extends StatelessWidget {
                                       ),
                                     ),
                                     Text(
-                                      "2232984",
+                                      state.allInfoUsers.userId,
                                       style: TextStyle(fontSize: 10),
                                     ),
                                   ],
