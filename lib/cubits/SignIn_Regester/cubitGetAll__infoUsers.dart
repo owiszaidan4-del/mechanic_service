@@ -19,12 +19,14 @@ class cubitGetAll__infoUsers extends Cubit<StategetallInfousers> {
       final DocumentSnapshot<Map<String, dynamic>> info =
           await FirebaseFirestore.instance
               .collection("users")
-              .doc("IwAcRBHbICZdNHqUn9nTLPTClwP2")
+              .doc("oVcgjuMzMAYT3lbJ7nLoBE2Vra62")
               .get();
       if (info.exists && info.data() != null) {
+        log(FirebaseAuth.instance.currentUser!.uid);
         Modelgetalluserinfo model = Modelgetalluserinfo.fromJson(info.data()!);
         emit(StateSucsess(allInfoUsers: model));
       } else {
+        log(currentUser!);
         emit(StateFaield(errType: "لايوجد مستخدم"));
       }
     } catch (e) {

@@ -61,6 +61,7 @@ class topConteanerProfilePage extends StatelessWidget {
                       BlocBuilder<cubitGetAll__infoUsers, StategetallInfousers>(
                         builder: (context, state) {
                           if (state is StateSucsess) {
+                            log(state.allInfoUsers.userId);
                             return Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -77,7 +78,7 @@ class topConteanerProfilePage extends StatelessWidget {
                                       size: 20,
                                     ),
                                     Text(
-                                      "4.7  ",
+                                      "${state.allInfoUsers.performance} ",
                                       style: TextStyle(
                                         fontSize: 10,
                                         color: Colors.white.withOpacity(0.4),
@@ -95,6 +96,7 @@ class topConteanerProfilePage extends StatelessWidget {
                             return Center(child: CircularProgressIndicator());
                           } else if (state is StateFaield) {
                             log(state.errType);
+
                             throw Exception(state.errType);
                           } else {
                             return SizedBox.shrink();

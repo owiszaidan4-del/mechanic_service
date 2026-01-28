@@ -40,12 +40,14 @@ class CubitRegesterauthtransaction
         .collection("users")
         .count()
         .get();
+
     final int numOfUser = (num.count! + 1);
     userId = int.parse("$yearId" + (numOfUser.toString()));
-
+    String? current;
     try {
       final credential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email!, password: password!);
+      current = credential.user!.uid;
       emit(state_success());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -70,7 +72,7 @@ class CubitRegesterauthtransaction
 
     // Call the user's CollectionReference to add a new user
     return users
-        .doc(currentUser)
+        .doc(current)
         .set({
           'userId': userId,
           'roule': 'mecanic',
