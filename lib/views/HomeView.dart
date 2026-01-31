@@ -1,5 +1,6 @@
 import 'package:car_serves/constant.dart';
 import 'package:car_serves/cubits/SignIn_Regester/cubitGetAll__infoUsers.dart';
+import 'package:car_serves/cubits/SignIn_Regester/cubitGetStateOfWork.dart';
 import 'package:car_serves/views/Awards.dart';
 import 'package:car_serves/views/PaysRecord.dart';
 import 'package:car_serves/views/RecordTasks.dart';
@@ -30,8 +31,16 @@ class _Homeview2State extends State<Homeview2> {
   ];
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => cubitGetAll__infoUsers()..getAllinfoUsers(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => cubitGetAll__infoUsers()..getAllinfoUsers(),
+        ),
+        BlocProvider(
+          create: (context) => Cubitgetstateofwork()..getstateofwork(),
+        ),
+      ],
+
       child: MaterialApp(
         routes: {
           "notifacation": (context) => Notifacation(),

@@ -1,9 +1,12 @@
 import 'package:car_serves/constant.dart';
+import 'package:car_serves/cubits/SignIn_Regester/cubitGetStateOfWork.dart';
+import 'package:car_serves/cubits/SignIn_Regester/stateGetStateOfWork.dart';
 import 'package:car_serves/widget/StateOfWork.dart';
 import 'package:car_serves/widget/bottomSheet/BottomSheet_StateNotWorking.dart';
 import 'package:car_serves/widget/bottomSheet/bottomSheet_working.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SheetButtom extends StatefulWidget {
   SheetButtom({super.key});
@@ -43,27 +46,20 @@ class _SheetButtomState extends State<SheetButtom> {
                       ),
                     ],
                   ),
-                  child: StreamBuilder(
-                    stream: FirebaseFirestore.instance
-                        .collection('users')
-                        .doc(currentUser!)
-                        .snapshots(),
-
-                    builder: (context, asyncSnapshot) {
-                      if (asyncSnapshot.hasError) {
-                        return Text('Something went wrong');
-                      }
-
-                      if (asyncSnapshot.connectionState ==
-                          ConnectionState.waiting) {
-                        return Text("Loading");
-                      }
-                      final stateOfWork = asyncSnapshot.data!
-                          .data()!["stateOfWork"];
-                      if (!stateOfWork) {
-                        return BottomSheet_StateNotWorking(width: width);
+                  child: BlocBuilder<Cubitgetstateofwork, Stategetstateofwork>(
+                    builder: (context, state) {
+                      if (state is StateSucssesgetstateOfWork) {
+                        final stateOfWork = state.stateOfWork;
+                        if (!stateOfWork) {
+                          return BottomSheet_StateNotWorking(width: width);
+                        } else {
+                          return bottomSheet_working();
+                        }
                       } else {
-                        return bottomSheet_working();
+                        final String err = state is StatefaieldgetstateOfWork
+                            ? state.err
+                            : "err";
+                        return Text(err);
                       }
                     },
                   ),

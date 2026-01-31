@@ -8,6 +8,8 @@ class Modelgetalluserinfo {
   final String specialization;
   final String userId;
   final String performance;
+  final bool stateOfWork;
+
   Modelgetalluserinfo({
     required this.userId,
     required this.city,
@@ -18,6 +20,7 @@ class Modelgetalluserinfo {
     required this.workadress,
     required this.specialization,
     required this.performance,
+    required this.stateOfWork,
   });
   factory Modelgetalluserinfo.fromJson(Map<String, dynamic> json) {
     return Modelgetalluserinfo(
@@ -30,6 +33,7 @@ class Modelgetalluserinfo {
       specialization: json["specialization"],
       userId: json["userId"].toString(),
       performance: json["performance"].toString(),
+      stateOfWork: json["stateOfWork"],
     );
   }
 }
