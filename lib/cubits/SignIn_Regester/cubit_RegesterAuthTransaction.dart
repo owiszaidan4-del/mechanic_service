@@ -74,7 +74,6 @@ class CubitRegesterauthtransaction
     return users
         .doc(current)
         .set({
-          "stateOfWork": false,
           'userId': userId,
           'roule': 'mecanic',
           'full_name': fullName,
