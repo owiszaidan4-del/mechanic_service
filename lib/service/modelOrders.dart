@@ -1,8 +1,8 @@
 class Modelorders {
   final String descreption;
   final String id;
-  final String lat;
-  final String lng;
+  final double lat;
+  final double lng;
 
   final String timeOrder;
   final bool wating;
@@ -20,10 +20,10 @@ class Modelorders {
     return Modelorders(
       descreption: json["descreption"],
       id: json["id"],
-      lat: json["lat"].toString(),
-      lng: json["lng"].toString(),
+      lat: json["lat"],
+      lng: json["lng"],
       timeOrder: json["timeOrder"].toString(),
-      wating: json["wating"],
+      wating: json["state"],
     );
   }
 }

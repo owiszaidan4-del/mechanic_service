@@ -7,8 +7,6 @@ import 'package:car_serves/observes.dart';
 import 'package:car_serves/views/HomeView.dart';
 import 'package:car_serves/views/signIn.dart';
 import 'package:car_serves/views/regesterView.dart';
-import 'package:car_serves/views/regester_2.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,6 +20,7 @@ void main() async {
   runApp(const car_serves());
 }
 
+//
 class car_serves extends StatelessWidget {
   const car_serves({super.key});
 

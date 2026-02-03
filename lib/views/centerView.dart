@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:car_serves/constant.dart';
+import 'package:car_serves/cubits/SignIn_Regester/cubitRequestOrders.dart';
 import 'package:car_serves/views/mapView.dart';
 import 'package:car_serves/views/profileView.dart';
 import 'package:car_serves/widget/ItemsOfGradeProfilePage.dart';
@@ -11,6 +12,7 @@ import 'package:car_serves/widget/SheetButtom.dart';
 import 'package:car_serves/widget/StateOfWork.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -25,6 +27,7 @@ class _CenterviewState extends State<Centerview> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
     checkPermution();
   }
 
@@ -40,6 +43,7 @@ class _CenterviewState extends State<Centerview> {
 
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<Cubitrequestorders>(context).requestorders();
     List<ItemsOfGradeProfilePage> items = [
       ItemsOfGradeProfilePage(
         onTap: () {

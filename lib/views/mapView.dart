@@ -103,9 +103,9 @@ class _MapviewState extends State<Mapview> {
   sendMyLocationToFireStore(double latitude, double longitude) {
     if (statework) {
       FirebaseFirestore.instance
-          .collection("mechanicLocation")
+          .collection("mechanicOnline")
           .doc(currentUser)
-          .set(({"lat": latitude, "lng": longitude}));
+          .update(({"lat": latitude, "lng": longitude}));
     } else {
       FirebaseFirestore.instance
           .collection("mechanicLocation")
