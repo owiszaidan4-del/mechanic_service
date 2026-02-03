@@ -5,7 +5,7 @@ class Modelorders {
   final double lng;
 
   final String timeOrder;
-  final bool wating;
+  final String stateOfRequest;
 
   Modelorders({
     required this.descreption,
@@ -13,7 +13,7 @@ class Modelorders {
     required this.lat,
     required this.lng,
     required this.timeOrder,
-    required this.wating,
+    required this.stateOfRequest,
   });
 
   factory Modelorders.fromJson(json) {
@@ -23,7 +23,7 @@ class Modelorders {
       lat: json["lat"],
       lng: json["lng"],
       timeOrder: json["timeOrder"].toString(),
-      wating: json["state"],
+      stateOfRequest: json["stateOfRequest"],
     );
   }
 }

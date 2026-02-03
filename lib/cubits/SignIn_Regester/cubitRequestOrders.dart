@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:car_serves/constant.dart';
 import 'package:car_serves/cubits/SignIn_Regester/stateRequestOrders.dart';
 import 'package:car_serves/service/modelOrders.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -15,8 +16,8 @@ class Cubitrequestorders extends Cubit<Staterequestorders> {
     _ordersSub?.cancel();
     _ordersSub = FirebaseFirestore.instance
         .collection("orders")
-        .where("state", isEqualTo: false)
-        .orderBy("timeOrder")
+        .where("stateOfRequest", isEqualTo: "pending")
+        .orderBy("timeOrder", descending: false)
         .snapshots()
         .listen((event) {
           log("op");
@@ -55,7 +56,7 @@ class Cubitrequestorders extends Cubit<Staterequestorders> {
             mindistance = distance;
             id = snapshot.docs[j].id;
           }
-          statusOfOrders(
+          modifyOrderStatus(
             idMechanic: id,
             idUser: model[i].id,
             idDocs: event.docs[i].id,
@@ -65,16 +66,31 @@ class Cubitrequestorders extends Cubit<Staterequestorders> {
     }
   }
 
-  statusOfOrders({
+  modifyOrderStatus({
     required String idMechanic,
     required String idUser,
     required String idDocs,
   }) async {
-    log(idDocs);
-    // await FirebaseFirestore.instance.collection("orders").doc(idDocs).set({
-    //   "idMecanic": idMechanic,
-    //   "state": "assigend",
-    // }, SetOptions(merge: true));
+    await FirebaseFirestore.instance.collection("orders").doc(idDocs).set({
+      "idMecanic": idMechanic,
+      "stateOfRequest": "assigend",
+      "timeOfassigend": FieldValue.serverTimestamp(),
+    }, SetOptions(merge: true));
+    if (idMechanic == currentUser) {
+      receivingNewRequest(
+        idDocs: idDocs,
+        idMechanic: idMechanic,
+        idUser: idUser,
+      );
+    }
+  }
+
+  receivingNewRequest({
+    required String idMechanic,
+    required String idUser,
+    required String idDocs,
+  }) {
+    FirebaseFirestore.instance.collection("users").doc(idUser).get();
   }
 
   @override
