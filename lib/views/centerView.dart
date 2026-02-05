@@ -1,7 +1,10 @@
 import 'dart:developer';
 
 import 'package:car_serves/constant.dart';
+import 'package:car_serves/cubits/SignIn_Regester/States_RegesterAuthTransaction.dart';
 import 'package:car_serves/cubits/SignIn_Regester/cubitRequestOrders.dart';
+import 'package:car_serves/cubits/SignIn_Regester/stateRequestOrders.dart';
+import 'package:car_serves/service/modelDriverInfo.dart';
 import 'package:car_serves/views/mapView.dart';
 import 'package:car_serves/views/profileView.dart';
 import 'package:car_serves/widget/ItemsOfGradeProfilePage.dart';
@@ -10,6 +13,8 @@ import 'package:car_serves/widget/MenueButton.dart';
 import 'package:car_serves/widget/MenueOfCenterView.dart';
 import 'package:car_serves/widget/SheetButtom.dart';
 import 'package:car_serves/widget/StateOfWork.dart';
+import 'package:car_serves/widget/bottomSheet/bottomSheet_working.dart';
+import 'package:car_serves/widget/sheetNewOrderWidget/sheet_new_order.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -98,7 +103,20 @@ class _CenterviewState extends State<Centerview> {
             items: items,
             transform: Matrix4.translationValues(isOpenMenue ? 0 : 300, 0, 0),
           ),
-          SheetButtom(),
+          BlocConsumer<Cubitrequestorders, Staterequestorders>(
+            listener: (context, state) {
+              if (state is StateWaiting) {}
+            },
+
+            builder: (context, state) {
+              if (state is StateWaiting) {
+                return sheet_new_order(modeldriverInfo: state.modeldriverInfo);
+              } else if (state is state_Inetial) {
+                return SheetButtom();
+              }
+              return SheetButtom();
+            },
+          ),
         ],
       ),
     );

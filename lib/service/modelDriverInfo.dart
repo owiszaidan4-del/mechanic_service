@@ -25,9 +25,9 @@ class ModeldriverInfo {
       email: json["email"],
       full_name: json["full_name"],
       phoneNumber: json["phoneNumber"],
-      registerDate: json["registerDate"],
+      registerDate: json["registerDate"].toString(),
       roule: json["roule"],
-      urlImage: json["urlImage"],
+      urlImage: json["urlImage"] ?? "",
       userid: json["userid"],
     );
   }
