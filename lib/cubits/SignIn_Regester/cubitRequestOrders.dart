@@ -6,11 +6,11 @@ import 'package:car_serves/cubits/SignIn_Regester/stateRequestOrders.dart';
 import 'package:car_serves/service/modelDriverInfo.dart';
 import 'package:car_serves/service/modelOrders.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 
 class Cubitrequestorders extends Cubit<Staterequestorders> {
+  double distanceToDriver = 0;
   Cubitrequestorders() : super(InetialStete());
   StreamSubscription? _ordersSub;
   requestorders() async {
@@ -22,7 +22,6 @@ class Cubitrequestorders extends Cubit<Staterequestorders> {
         .orderBy("timeOrder", descending: false)
         .snapshots()
         .listen((event) {
-          log("op");
           List<Modelorders> model = [];
           if (event.docs.isNotEmpty) {
             for (var element in event.docs) {
@@ -60,10 +59,10 @@ class Cubitrequestorders extends Cubit<Staterequestorders> {
               id = snapshot.docs[j].id;
             }
           }
-
+          distanceToDriver = mindistance;
           modifyOrderStatus(
             idMechanic: id,
-            idUser: model[i].id,
+            modelOrder: model[i],
             idDocs: event.docs[i].id,
           );
         }
@@ -75,8 +74,9 @@ class Cubitrequestorders extends Cubit<Staterequestorders> {
   }
 
   modifyOrderStatus({
+    required Modelorders modelOrder,
     required String idMechanic,
-    required String idUser,
+
     required String idDocs,
   }) async {
     try {
@@ -87,9 +87,9 @@ class Cubitrequestorders extends Cubit<Staterequestorders> {
       }, SetOptions(merge: true));
       if (idMechanic == currentUser) {
         receivingNewRequest(
+          modelOrder: modelOrder,
           idDocs: idDocs,
           idMechanic: idMechanic,
-          idUser: idUser,
         );
       }
     } catch (e) {
@@ -98,19 +98,26 @@ class Cubitrequestorders extends Cubit<Staterequestorders> {
   }
 
   receivingNewRequest({
+    required Modelorders modelOrder,
     required String idMechanic,
-    required String idUser,
+
     required String idDocs,
   }) async {
     await FirebaseFirestore.instance
         .collection("mechanicOnline")
         .doc(idMechanic)
         .update({"available": false});
-    final driverInfo = await getDriverInfoAsModel(idUser);
+    final driverInfo = await getDriverInfoAsModel(modelOrder.id);
 
     if (driverInfo != null) {
       log("StateWaiting");
-      emit(StateWaiting(modeldriverInfo: driverInfo));
+      emit(
+        StateWaiting(
+          modeldriverInfo: driverInfo,
+          modelorders: modelOrder,
+          distanceToDriver: distanceToDriver,
+        ),
+      );
       // Timer.periodic(Duration(minutes: 20), (timer) async {
       //   await checkAndCancelOrder(idDocs: idDocs);
       //   timer.cancel();

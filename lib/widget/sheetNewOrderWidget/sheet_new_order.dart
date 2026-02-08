@@ -43,8 +43,10 @@ class sheet_new_order extends StatelessWidget {
                       name: modeldriverInfo.full_name,
                       urlImage: modeldriverInfo.urlImage,
                     ),
-                    //end row
+
                     Divider(),
+
+                    //end
                   ],
                 ),
               ),

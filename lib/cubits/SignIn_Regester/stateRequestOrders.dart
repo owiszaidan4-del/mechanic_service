@@ -1,4 +1,5 @@
 import 'package:car_serves/service/modelDriverInfo.dart';
+import 'package:car_serves/service/modelOrders.dart';
 
 class Staterequestorders {}
 
@@ -9,8 +10,9 @@ class StateAcceptOrders extends Staterequestorders {}
 class StateRejectOrders extends Staterequestorders {}
 
 class StateWaiting extends Staterequestorders {
-  ModeldriverInfo modeldriverInfo;
-  StateWaiting({required this.modeldriverInfo});
+  final ModeldriverInfo modeldriverInfo;
+  final Modelorders modelorders;
+  StateWaiting({required this.modeldriverInfo, required this.modelorders});
 }
 
 class StateProplem extends Staterequestorders {
