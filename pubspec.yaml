@@ -46,6 +46,10 @@ dependencies:
   dio: ^5.9.0
   geocoding: ^4.0.0
   url_launcher: ^6.3.2
+  image_cropper: ^10.0.0+1
+  firebase_storage: ^13.0.1
+  image_picker: ^1.2.0
+  cached_network_image: ^3.4.1
 
 dev_dependencies:
   flutter_test:
@@ -95,6 +99,11 @@ flutter:
     - asset/trophy.png
     - asset/carLocation.png
     - asset/error.png
+    - asset/phone.png
+    - asset/location.png
+    - asset/chronometer.png
+    - asset/cancel.png
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

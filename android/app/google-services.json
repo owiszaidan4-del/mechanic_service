@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "364304254836",
+    "firebase_url": "https://owis-412911-default-rtdb.firebaseio.com",
     "project_id": "owis-412911",
     "storage_bucket": "owis-412911.firebasestorage.app"
   },
@@ -10,6 +11,35 @@
         "mobilesdk_app_id": "1:364304254836:android:bffd9289c5ca501c880e21",
         "android_client_info": {
           "package_name": "com.example.car_serves"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "364304254836-35rghm589j5nd1hk1lu53brvhor6r173.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlGFGgzsJiy-FhGM5Wtp8IDPRzGQHpCO0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "364304254836-35rghm589j5nd1hk1lu53brvhor6r173.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:364304254836:android:9b4493000f2a1828880e21",
+        "android_client_info": {
+          "package_name": "com.example.tstapp"
         }
       },
       "oauth_client": [
