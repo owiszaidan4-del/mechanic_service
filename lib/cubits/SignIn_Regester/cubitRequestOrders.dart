@@ -3,18 +3,23 @@ import 'dart:developer';
 
 import 'package:car_serves/constant.dart';
 import 'package:car_serves/cubits/SignIn_Regester/stateRequestOrders.dart';
+import 'package:car_serves/service/getArrivalTime.dart';
 import 'package:car_serves/service/modelDriverInfo.dart';
 import 'package:car_serves/service/modelOrders.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 
-class Cubitrequestorders extends Cubit<Staterequestorders> {
+class Cubitrequestorders extends Cubit {
   double distanceToDriver = 0;
-  Cubitrequestorders() : super(InetialStete());
+  List<double> latLngMech = [];
+  List<double> latLngDriver = [];
+
+  Cubitrequestorders() : super(());
   StreamSubscription? _ordersSub;
   requestorders() async {
-    emit(InetialStete());
     _ordersSub?.cancel();
     _ordersSub = FirebaseFirestore.instance
         .collection("orders")
@@ -43,10 +48,10 @@ class Cubitrequestorders extends Cubit<Staterequestorders> {
           .get();
       if (snapshot.docs.isNotEmpty) {
         final data = snapshot.docs;
-        double mindistance = double.infinity;
 
-        String id = "";
         for (int i = 0; i < model.length; i++) {
+          double mindistance = double.infinity;
+          String id = "";
           for (int j = 0; j < data.length; j++) {
             double distance = Geolocator.distanceBetween(
               data[j]["lat"],
@@ -57,9 +62,11 @@ class Cubitrequestorders extends Cubit<Staterequestorders> {
             if (mindistance >= distance) {
               mindistance = distance;
               id = snapshot.docs[j].id;
+              latLngMech = [data[j]["lng"], data[j]["lat"]];
             }
           }
           distanceToDriver = mindistance;
+
           modifyOrderStatus(
             idMechanic: id,
             modelOrder: model[i],
@@ -69,7 +76,6 @@ class Cubitrequestorders extends Cubit<Staterequestorders> {
       }
     } catch (e) {
       log(e.toString());
-      emit(StateProplem(err: e.toString()));
     }
   }
 
@@ -80,11 +86,11 @@ class Cubitrequestorders extends Cubit<Staterequestorders> {
     required String idDocs,
   }) async {
     try {
-      await FirebaseFirestore.instance.collection("orders").doc(idDocs).set({
-        "idMecanic": idMechanic,
-        "stateOfRequest": "assigend",
-        "timeOfassigend": FieldValue.serverTimestamp(),
-      }, SetOptions(merge: true));
+      // await FirebaseFirestore.instance.collection("orders").doc(idDocs).set({
+      // "idMecanic": idMechanic,
+      // "stateOfRequest": "assigend",
+      // "timeOfassigend": FieldValue.serverTimestamp(),
+      // }, SetOptions(merge: true));
       if (idMechanic == currentUser) {
         receivingNewRequest(
           modelOrder: modelOrder,
@@ -93,7 +99,7 @@ class Cubitrequestorders extends Cubit<Staterequestorders> {
         );
       }
     } catch (e) {
-      emit(StateProplem(err: e.toString()));
+      log(e.toString());
     }
   }
 
@@ -108,16 +114,28 @@ class Cubitrequestorders extends Cubit<Staterequestorders> {
         .doc(idMechanic)
         .update({"available": false});
     final driverInfo = await getDriverInfoAsModel(modelOrder.id);
+    latLngDriver = [modelOrder.lng, modelOrder.lat];
+    final getarrivaltime = await Getarrivaltime(
+      latLngDriver: latLngDriver,
+      latLngMech: latLngMech,
+    ).getarrivaltime();
+    final getplacemark = await placemarkFromCoordinates(
+      modelOrder.lat,
+      modelOrder.lng,
+    );
 
+    final placemark = getplacemark.first;
     if (driverInfo != null) {
       log("StateWaiting");
-      emit(
-        StateWaiting(
-          modeldriverInfo: driverInfo,
-          modelorders: modelOrder,
-          distanceToDriver: distanceToDriver,
-        ),
-      );
+      await FirebaseFirestore.instance.collection("orders").doc(idDocs).set({
+        "idMecanic": idMechanic,
+        "stateOfRequest": "assigend",
+        "timeOfassigend": FieldValue.serverTimestamp(),
+        "placemark": "${placemark.subLocality}, ${placemark.street}",
+        "arrivaltime": getarrivaltime,
+        "distanceToDriver": distanceToDriver,
+      }, SetOptions(merge: true));
+
       // Timer.periodic(Duration(minutes: 20), (timer) async {
       //   await checkAndCancelOrder(idDocs: idDocs);
       //   timer.cancel();
@@ -153,13 +171,12 @@ class Cubitrequestorders extends Cubit<Staterequestorders> {
     await FirebaseFirestore.instance.collection("orders").doc(idDocs).update({
       "stateOfRequest": "pending",
     });
-    emit(StateRejectOrders());
+    log("reject order");
     Future.delayed(Duration(seconds: 20), () {
       FirebaseFirestore.instance
           .collection("mechanicOnline")
           .doc(currentUser)
           .update({"available": true});
-      emit(InetialStete());
     });
 
     log("❌ تم إلغاء الطلب");
@@ -177,7 +194,7 @@ class Cubitrequestorders extends Cubit<Staterequestorders> {
       }
     } catch (e) {
       log(e.toString());
-      emit(StateProplem(err: e.toString()));
+
       return null;
     }
   }

@@ -7,6 +7,7 @@ import 'package:car_serves/observes.dart';
 import 'package:car_serves/views/HomeView.dart';
 import 'package:car_serves/views/signIn.dart';
 import 'package:car_serves/views/regesterView.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

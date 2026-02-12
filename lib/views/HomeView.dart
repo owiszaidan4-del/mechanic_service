@@ -1,6 +1,7 @@
 import 'package:car_serves/constant.dart';
 import 'package:car_serves/cubits/SignIn_Regester/cubitGetAll__infoUsers.dart';
 import 'package:car_serves/cubits/SignIn_Regester/cubitGetStateOfWork.dart';
+import 'package:car_serves/cubits/SignIn_Regester/cubitManageOrdersState.dart';
 import 'package:car_serves/cubits/SignIn_Regester/cubitRequestOrders.dart';
 import 'package:car_serves/views/Awards.dart';
 import 'package:car_serves/views/PaysRecord.dart';
@@ -42,6 +43,9 @@ class _Homeview2State extends State<Homeview2> {
         ),
         BlocProvider(
           create: (context) => Cubitrequestorders()..requestorders(),
+        ),
+        BlocProvider(
+          create: (context) => Cubitmanageordersstate()..manageStateOfOrders(),
         ),
       ],
 

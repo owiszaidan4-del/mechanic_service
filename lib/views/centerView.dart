@@ -1,24 +1,19 @@
 import 'dart:developer';
 
-import 'package:car_serves/constant.dart';
+import 'package:car_serves/cubits/SignIn_Regester/StateManageOrdersState.dart';
 import 'package:car_serves/cubits/SignIn_Regester/States_RegesterAuthTransaction.dart';
+import 'package:car_serves/cubits/SignIn_Regester/cubitManageOrdersState.dart';
 import 'package:car_serves/cubits/SignIn_Regester/cubitRequestOrders.dart';
-import 'package:car_serves/cubits/SignIn_Regester/stateRequestOrders.dart';
-import 'package:car_serves/service/modelDriverInfo.dart';
 import 'package:car_serves/views/mapView.dart';
-import 'package:car_serves/views/profileView.dart';
 import 'package:car_serves/widget/ItemsOfGradeProfilePage.dart';
 import 'package:car_serves/widget/Menue.dart';
 import 'package:car_serves/widget/MenueButton.dart';
-import 'package:car_serves/widget/MenueOfCenterView.dart';
+import 'package:car_serves/widget/SheetAcceptedOrder/Sheet_Accepted_order.dart';
 import 'package:car_serves/widget/SheetButtom.dart';
 import 'package:car_serves/widget/StateOfWork.dart';
-import 'package:car_serves/widget/bottomSheet/bottomSheet_working.dart';
 import 'package:car_serves/widget/sheetNewOrderWidget/sheet_new_order.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class Centerview extends StatefulWidget {
@@ -32,7 +27,7 @@ class _CenterviewState extends State<Centerview> {
   void initState() {
     // TODO: implement initState
     super.initState();
-
+    context.read<Cubitrequestorders>().requestorders();
     checkPermution();
   }
 
@@ -48,7 +43,6 @@ class _CenterviewState extends State<Centerview> {
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<Cubitrequestorders>(context).requestorders();
     List<ItemsOfGradeProfilePage> items = [
       ItemsOfGradeProfilePage(
         onTap: () {
@@ -103,17 +97,25 @@ class _CenterviewState extends State<Centerview> {
             items: items,
             transform: Matrix4.translationValues(isOpenMenue ? 0 : 300, 0, 0),
           ),
-          BlocConsumer<Cubitrequestorders, Staterequestorders>(
+          BlocConsumer<Cubitmanageordersstate, Statemanageordersstate>(
             listener: (context, state) {
               if (state is StateWaiting) {}
             },
 
             builder: (context, state) {
               if (state is StateWaiting) {
-                return sheet_new_order(modeldriverInfo: state.modeldriverInfo);
-              } else if (state is state_Inetial) {
-                return SheetButtom();
+                return sheet_new_order(
+                  modeldriverInfo: state.modeldriverInfo,
+                  modelorders: state.modelorders,
+                  idDoc: state.idDoc,
+                );
+              } else if (state is StateAcceptOrders) {
+                return SheetAcceptedOrder(
+                  modeldriverInfo: state.modeldriverInfo,
+                  modelorders: state.modelorders,
+                );
               }
+
               return SheetButtom();
             },
           ),

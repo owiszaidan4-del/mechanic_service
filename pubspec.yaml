@@ -37,11 +37,15 @@ dependencies:
   google_maps_flutter: ^2.14.0
   permission_handler: ^12.0.1 
   geolocator: ^14.0.2
-  firebase_core: ^4.3.0
+  firebase_core: ^4.4.0
   bloc: ^9.1.0
   firebase_auth: ^6.1.3
   cloud_firestore: ^6.1.1
   flutter_bloc: ^9.1.1
+  cloud_functions: ^6.0.6
+  dio: ^5.9.0
+  geocoding: ^4.0.0
+  url_launcher: ^6.3.2
 
 dev_dependencies:
   flutter_test:
@@ -89,6 +93,8 @@ flutter:
     - asset/personal-info.png
     - asset/authenticity.png
     - asset/trophy.png
+    - asset/carLocation.png
+    - asset/error.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

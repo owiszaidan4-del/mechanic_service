@@ -46,6 +46,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '364304254836',
     projectId: 'owis-412911',
     authDomain: 'owis-412911.firebaseapp.com',
+    databaseURL: 'https://owis-412911-default-rtdb.firebaseio.com',
     storageBucket: 'owis-412911.firebasestorage.app',
     measurementId: 'G-H1T76P7SYN',
   );
@@ -55,6 +56,7 @@ class DefaultFirebaseOptions {
     appId: '1:364304254836:android:bffd9289c5ca501c880e21',
     messagingSenderId: '364304254836',
     projectId: 'owis-412911',
+    databaseURL: 'https://owis-412911-default-rtdb.firebaseio.com',
     storageBucket: 'owis-412911.firebasestorage.app',
   );
 
@@ -63,6 +65,7 @@ class DefaultFirebaseOptions {
     appId: '1:364304254836:ios:584dd23a1f89d09b880e21',
     messagingSenderId: '364304254836',
     projectId: 'owis-412911',
+    databaseURL: 'https://owis-412911-default-rtdb.firebaseio.com',
     storageBucket: 'owis-412911.firebasestorage.app',
     iosBundleId: 'com.example.carServes',
   );
@@ -72,6 +75,7 @@ class DefaultFirebaseOptions {
     appId: '1:364304254836:ios:584dd23a1f89d09b880e21',
     messagingSenderId: '364304254836',
     projectId: 'owis-412911',
+    databaseURL: 'https://owis-412911-default-rtdb.firebaseio.com',
     storageBucket: 'owis-412911.firebasestorage.app',
     iosBundleId: 'com.example.carServes',
   );
@@ -82,7 +86,9 @@ class DefaultFirebaseOptions {
     messagingSenderId: '364304254836',
     projectId: 'owis-412911',
     authDomain: 'owis-412911.firebaseapp.com',
+    databaseURL: 'https://owis-412911-default-rtdb.firebaseio.com',
     storageBucket: 'owis-412911.firebasestorage.app',
     measurementId: 'G-58DWY5DFQ9',
   );
+
 }
