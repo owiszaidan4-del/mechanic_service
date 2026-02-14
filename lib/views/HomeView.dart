@@ -4,6 +4,7 @@ import 'package:car_serves/cubits/SignIn_Regester/cubitGetStateOfWork.dart';
 import 'package:car_serves/cubits/SignIn_Regester/cubitManageOrdersState.dart';
 import 'package:car_serves/cubits/SignIn_Regester/cubitRequestOrders.dart';
 import 'package:car_serves/views/Awards.dart';
+import 'package:car_serves/views/ChatView.dart';
 import 'package:car_serves/views/PaysRecord.dart';
 import 'package:car_serves/views/RecordTasks.dart';
 import 'package:car_serves/views/centerView.dart';

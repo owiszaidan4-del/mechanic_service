@@ -5,4 +5,8 @@ import 'package:flutter/widgets.dart';
 
 List<Color> colors = [Colors.blueAccent, Colors.redAccent];
 final hintColor = Colors.grey;
-String? currentUser = FirebaseAuth.instance.currentUser!.uid;
+ch() {
+  if (FirebaseAuth.instance.currentUser?.uid != null) {}
+}
+
+String? currentUser = FirebaseAuth.instance.currentUser?.uid;
