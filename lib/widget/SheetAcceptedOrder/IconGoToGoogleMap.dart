@@ -2,15 +2,9 @@ import 'package:car_serves/widget/SheetAcceptedOrder/Sheet_Accepted_order.dart';
 import 'package:flutter/material.dart';
 
 class IconGoToGoogleMap extends StatelessWidget {
-  IconGoToGoogleMap({
-    super.key,
-    required this.widget,
-    required this.onTap,
-    required this.urlImage,
-  });
+  IconGoToGoogleMap({super.key, required this.onTap, required this.urlImage});
   void Function()? onTap;
   final String urlImage;
-  final SheetAcceptedOrder widget;
 
   @override
   Widget build(BuildContext context) {

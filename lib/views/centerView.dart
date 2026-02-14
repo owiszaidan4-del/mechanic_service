@@ -9,6 +9,7 @@ import 'package:car_serves/widget/ItemsOfGradeProfilePage.dart';
 import 'package:car_serves/widget/Menue.dart';
 import 'package:car_serves/widget/MenueButton.dart';
 import 'package:car_serves/widget/SheetAcceptedOrder/Sheet_Accepted_order.dart';
+import 'package:car_serves/widget/SheetArrivedMechanic/SheetArrivedMechanic.dart';
 import 'package:car_serves/widget/SheetButtom.dart';
 import 'package:car_serves/widget/StateOfWork.dart';
 import 'package:car_serves/widget/sheetNewOrderWidget/sheet_new_order.dart';
@@ -97,6 +98,7 @@ class _CenterviewState extends State<Centerview> {
             items: items,
             transform: Matrix4.translationValues(isOpenMenue ? 0 : 300, 0, 0),
           ),
+          //types of sheet
           BlocConsumer<Cubitmanageordersstate, Statemanageordersstate>(
             listener: (context, state) {
               if (state is StateWaiting) {}
@@ -111,6 +113,13 @@ class _CenterviewState extends State<Centerview> {
                 );
               } else if (state is StateAcceptOrders) {
                 return SheetAcceptedOrder(
+                  idDoc: state.idDoc,
+                  modeldriverInfo: state.modeldriverInfo,
+                  modelorders: state.modelorders,
+                );
+              } else if (state is StateArrived) {
+                return Sheetarrivedmechanic(
+                  idDoc: state.idDoc,
                   modeldriverInfo: state.modeldriverInfo,
                   modelorders: state.modelorders,
                 );

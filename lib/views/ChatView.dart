@@ -67,10 +67,12 @@ class _ChatviewState extends State<Chatview> {
       appBar: AppBar(
         title: widget.chatWithAdmin
             ? appBarOfChatView(
+                chatWithAdmin: widget.chatWithAdmin,
                 text: "التحدث مع الدعم",
                 urlImage: "asset/admin.png",
               )
             : appBarOfChatView(
+                chatWithAdmin: widget.chatWithAdmin,
                 urlImage: widget.modelDrider.urlImage,
                 text: widget.modelDrider.full_name,
               ),
@@ -329,13 +331,15 @@ class _ChatviewState extends State<Chatview> {
 }
 
 class appBarOfChatView extends StatelessWidget {
-  const appBarOfChatView({
+  appBarOfChatView({
     super.key,
     required this.urlImage,
     required this.text,
+    required this.chatWithAdmin,
   });
   final String urlImage;
   final String text;
+  bool chatWithAdmin = false;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -345,7 +349,9 @@ class appBarOfChatView extends StatelessWidget {
           radius: MediaQuery.of(context).size.width * 0.07,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Image.asset(urlImage, fit: BoxFit.cover),
+            child: chatWithAdmin
+                ? Image.asset(urlImage, fit: BoxFit.cover)
+                : Image.network(urlImage),
           ),
         ),
         Text(text, style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),

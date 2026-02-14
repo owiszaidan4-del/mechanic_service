@@ -3,11 +3,11 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 
 class Getarrivaltime {
-  final List<double> latLngMech;
-  final List<double> latLngDriver;
+  final List<double> lngLatMech;
+  final List<double> lngLatDriver;
 
-  Getarrivaltime({required this.latLngDriver, required this.latLngMech});
-  getarrivaltime() async {
+  Getarrivaltime({required this.lngLatMech, required this.lngLatDriver});
+  Future<double> getarrivaltime() async {
     final key =
         'eyJvcmciOiI1YjNjZTM1OTc4NTExMTAwMDFjZjYyNDgiLCJpZCI6IjRkZTg0OTdkNzQ3MjQ2YzQ5MzdkMmZmOTI5ZDA4NTMzIiwiaCI6Im11cm11cjY0In0=';
     final dio = Dio();
@@ -22,8 +22,8 @@ class Getarrivaltime {
         ),
         data: {
           "locations": [
-            [35.9461239, 31.83393], // [lon, lat]
-            [35.928371, 31.945368],
+            lngLatMech, // [lon, lat]
+            lngLatDriver,
           ],
           "metrics": ["duration"],
           "units": "km",
@@ -32,10 +32,10 @@ class Getarrivaltime {
       final double arrivaltime = await response.data["durations"][0][1];
       final String arrivaltimeFormat = computeArrivaltime(time: arrivaltime);
       log(arrivaltimeFormat);
-      return arrivaltimeFormat;
+      return arrivaltime;
     } catch (e) {
       log(e.toString());
-      return "";
+      return 0;
     }
   }
 

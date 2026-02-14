@@ -104,6 +104,8 @@ flutter:
     - asset/chronometer.png
     - asset/cancel.png
     - asset/admin.png
+    - asset/chat-bubble.png
+    - asset/phone (1).png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

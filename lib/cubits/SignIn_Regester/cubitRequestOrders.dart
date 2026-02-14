@@ -116,8 +116,8 @@ class Cubitrequestorders extends Cubit {
     final driverInfo = await getDriverInfoAsModel(modelOrder.id);
     latLngDriver = [modelOrder.lng, modelOrder.lat];
     final getarrivaltime = await Getarrivaltime(
-      latLngDriver: latLngDriver,
-      latLngMech: latLngMech,
+      lngLatDriver: latLngDriver,
+      lngLatMech: latLngMech,
     ).getarrivaltime();
     final getplacemark = await placemarkFromCoordinates(
       modelOrder.lat,

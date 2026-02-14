@@ -56,9 +56,8 @@ class sheet_new_order extends StatelessWidget {
                       children: [
                         appBar_of_sheet_new_order(idDoc: idDoc),
                         personalInfo_of_sheet_new_order(
-                          carModel: modeldriverInfo.careModel,
-                          name: modeldriverInfo.full_name,
-                          urlImage: modeldriverInfo.urlImage,
+                          modeldriverInfo: modeldriverInfo,
+                          userId: modelorders.id,
                         ),
 
                         Divider(),

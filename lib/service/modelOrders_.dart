@@ -3,7 +3,7 @@ class modelOrders_ {
   final String id;
   final double lat;
   final double lng;
-  final String arrivaltime;
+  final double arrivaltime;
   final double distanceToDriver;
   final String placemark;
   final String timeOfassigend;

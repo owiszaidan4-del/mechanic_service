@@ -1,5 +1,7 @@
 import 'dart:developer';
 
+import 'package:car_serves/service/modelDriverInfo.dart';
+import 'package:car_serves/service/modelOrders_.dart';
 import 'package:car_serves/views/ChatView.dart';
 import 'package:car_serves/widget/SheetAcceptedOrder/IconGoToGoogleMap.dart';
 import 'package:car_serves/widget/SheetAcceptedOrder/Sheet_Accepted_order.dart';
@@ -10,10 +12,16 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class IconGotoGoogleMap_IconManageOrders extends StatelessWidget {
-  const IconGotoGoogleMap_IconManageOrders({super.key, required this.widget});
+  const IconGotoGoogleMap_IconManageOrders({
+    super.key,
+    required this.idDoc,
+    required this.modeldriverInfo,
+    required this.modelorders,
+  });
+  final String idDoc;
 
-  final SheetAcceptedOrder widget;
-
+  final ModeldriverInfo modeldriverInfo;
+  final modelOrders_ modelorders;
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -25,14 +33,14 @@ class IconGotoGoogleMap_IconManageOrders extends StatelessWidget {
           children: [
             IconGoToGoogleMap(
               urlImage: "asset/carLocation.png",
-              widget: widget,
+
               onTap: () async {
                 await goToGoogleMap();
               },
             ),
             IconGoToGoogleMap(
               urlImage: "asset/error.png",
-              widget: widget,
+
               onTap: () async {
                 await orderIssueDialog(context);
               },
@@ -63,7 +71,7 @@ class IconGotoGoogleMap_IconManageOrders extends StatelessWidget {
                         initText: "العميل لا يرد على الهاتف",
                         chatWithAdmin: true,
                         userId: "R2tid7z25Po1HCP7aHA2",
-                        modelDrider: widget.modeldriverInfo,
+                        modelDrider: modeldriverInfo,
                       ),
                     ),
                   );
@@ -82,7 +90,7 @@ class IconGotoGoogleMap_IconManageOrders extends StatelessWidget {
                         initText: "لا استطيع الوصول للموقع",
                         chatWithAdmin: true,
                         userId: "R2tid7z25Po1HCP7aHA2",
-                        modelDrider: widget.modeldriverInfo,
+                        modelDrider: modeldriverInfo,
                       ),
                     ),
                   );
@@ -97,7 +105,10 @@ class IconGotoGoogleMap_IconManageOrders extends StatelessWidget {
                     context: context,
 
                     builder: (context) {
-                      return expectedTimeLayOut();
+                      return expectedTimeLayOut(
+                        arrivalTime: modelorders.arrivaltime,
+                        idDoc: idDoc,
+                      );
                     },
                   );
                 },
@@ -114,7 +125,7 @@ class IconGotoGoogleMap_IconManageOrders extends StatelessWidget {
                         initText: " ارغب في الغاء الطلب",
                         chatWithAdmin: true,
                         userId: "R2tid7z25Po1HCP7aHA2",
-                        modelDrider: widget.modeldriverInfo,
+                        modelDrider: modeldriverInfo,
                       ),
                     ),
                   );
@@ -132,7 +143,7 @@ class IconGotoGoogleMap_IconManageOrders extends StatelessWidget {
                         initText: "التحدث مع الدعم",
                         chatWithAdmin: true,
                         userId: "R2tid7z25Po1HCP7aHA2",
-                        modelDrider: widget.modeldriverInfo,
+                        modelDrider: modeldriverInfo,
                       ),
                     ),
                   );
@@ -149,7 +160,7 @@ class IconGotoGoogleMap_IconManageOrders extends StatelessWidget {
 
   Future<void> goToGoogleMap() async {
     final Uri uri = Uri.parse(
-      "https://www.google.com/maps/search/?api=1&query=${widget.modelorders.lat},${widget.modelorders.lng}",
+      "https://www.google.com/maps/search/?api=1&query=${modelorders.lat},${modelorders.lng}",
     );
     if (await canLaunchUrl(uri)) {
       await launchUrl(uri);

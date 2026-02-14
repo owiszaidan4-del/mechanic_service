@@ -18,10 +18,11 @@ import 'package:url_launcher/url_launcher.dart';
 class SheetAcceptedOrder extends StatefulWidget {
   final ModeldriverInfo modeldriverInfo;
   final modelOrders_ modelorders;
-
+  final String idDoc;
   const SheetAcceptedOrder({
     required this.modeldriverInfo,
     required this.modelorders,
+    required this.idDoc,
   });
 
   @override
@@ -45,7 +46,11 @@ class _SheetAcceptedOrderState extends State<SheetAcceptedOrder> {
         return ListView(
           controller: scrollController,
           children: [
-            IconGotoGoogleMap_IconManageOrders(widget: widget),
+            IconGotoGoogleMap_IconManageOrders(
+              modeldriverInfo: widget.modeldriverInfo,
+              modelorders: widget.modelorders,
+              idDoc: widget.idDoc,
+            ),
 
             Container(
               height: MediaQuery.of(context).size.height * 0.50,
@@ -72,9 +77,8 @@ class _SheetAcceptedOrderState extends State<SheetAcceptedOrder> {
                       children: [
                         AppbarOfSheetAcceptedOrder(),
                         personalInfo_of_sheet_new_order(
-                          carModel: widget.modeldriverInfo.careModel,
-                          name: widget.modeldriverInfo.full_name,
-                          urlImage: widget.modeldriverInfo.urlImage,
+                          modeldriverInfo: widget.modeldriverInfo,
+                          userId: widget.modelorders.id,
                         ),
 
                         Divider(),
