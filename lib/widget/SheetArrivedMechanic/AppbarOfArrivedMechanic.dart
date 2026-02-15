@@ -1,16 +1,9 @@
-import 'dart:developer';
 import 'dart:io';
 
-import 'package:car_serves/constant.dart';
 import 'package:car_serves/cubits/SignIn_Regester/cubitTakeImage.dart';
 import 'package:car_serves/widget/SheetArrivedMechanic/widgetTake_Photo.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dotted_border/dotted_border.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AppbarOfArrivedMechanic extends StatelessWidget {
