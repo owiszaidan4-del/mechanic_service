@@ -9,6 +9,7 @@ import 'package:car_serves/widget/ItemsOfGradeProfilePage.dart';
 import 'package:car_serves/widget/Menue.dart';
 import 'package:car_serves/widget/MenueButton.dart';
 import 'package:car_serves/widget/SheetAcceptedOrder/Sheet_Accepted_order.dart';
+import 'package:car_serves/widget/SheetAcceptedOrder/messageEndedTask.dart';
 import 'package:car_serves/widget/SheetArrivedMechanic/SheetArrivedMechanic.dart';
 import 'package:car_serves/widget/SheetButtom.dart';
 import 'package:car_serves/widget/StateOfWork.dart';
@@ -123,6 +124,8 @@ class _CenterviewState extends State<Centerview> {
                   modeldriverInfo: state.modeldriverInfo,
                   modelorders: state.modelorders,
                 );
+              } else if (state is StateDone) {
+                return messageEndedTask();
               }
 
               return SheetButtom();

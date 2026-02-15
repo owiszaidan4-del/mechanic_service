@@ -46,3 +46,5 @@ class StateProplem extends Statemanageordersstate {
 
   StateProplem({required this.err});
 }
+
+class StateDone extends Statemanageordersstate {}

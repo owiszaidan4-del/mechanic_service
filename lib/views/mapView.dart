@@ -3,9 +3,11 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:car_serves/constant.dart';
+import 'package:car_serves/cubits/SignIn_Regester/StateManageOrdersState.dart';
 import 'package:car_serves/cubits/SignIn_Regester/States_RegesterAuthTransaction.dart';
 import 'package:car_serves/cubits/SignIn_Regester/cubitGetAll__infoUsers.dart';
 import 'package:car_serves/cubits/SignIn_Regester/cubitGetStateOfWork.dart';
+import 'package:car_serves/cubits/SignIn_Regester/cubitManageOrdersState.dart';
 import 'package:car_serves/cubits/SignIn_Regester/stateGetAll_infoUsers.dart';
 import 'package:car_serves/cubits/SignIn_Regester/stateGetStateOfWork.dart';
 import 'package:car_serves/service/getMyLocation.dart';
@@ -26,6 +28,7 @@ class _MapviewState extends State<Mapview> {
   LatLng initialPostion = LatLng(31.945368, 35.928371);
 
   late Marker myMarker;
+  Marker? driverMarker;
   @override
   void initState() {
     // TODO: implement initState
@@ -52,28 +55,50 @@ class _MapviewState extends State<Mapview> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocListener<Cubitgetstateofwork, Stategetstateofwork>(
+      body: BlocListener<Cubitmanageordersstate, Statemanageordersstate>(
         listener: (context, state) {
-          if (state is StateSucssesgetstateOfWork) {
-            statework = state.stateOfWork;
+          if (state is StateAcceptOrders || state is StateArrived) {
+            final order = state is StateAcceptOrders
+                ? state.modelorders
+                : (state as StateArrived).modelorders;
+
+            setState(() {
+              driverMarker = Marker(
+                markerId: const MarkerId("driverMarker"),
+                position: LatLng(order.lat, order.lng),
+                icon: AssetMapBitmap(
+                  "asset/carDriver.png",
+                  width: 48,
+                  height: 48,
+                ),
+                anchor: const Offset(0.5, 0.5),
+              );
+            });
           }
         },
-        child: GoogleMap(
-          onMapCreated: (controller) {
-            googleMapController = controller;
-
-            getMyPostionStream();
+        child: BlocListener<Cubitgetstateofwork, Stategetstateofwork>(
+          listener: (context, state) {
+            if (state is StateSucssesgetstateOfWork) {
+              statework = state.stateOfWork;
+            }
           },
+          child: GoogleMap(
+            onMapCreated: (controller) {
+              googleMapController = controller;
 
-          initialCameraPosition: CameraPosition(
-            target: initialPostion,
-            zoom: 15,
+              getMyPostionStream();
+            },
+
+            initialCameraPosition: CameraPosition(
+              target: initialPostion,
+              zoom: 15,
+            ),
+            markers: {myMarker, if (driverMarker != null) driverMarker!},
+            onCameraMove: (position) {},
+            onTap: (postion) {},
+            rotateGesturesEnabled: true,
+            myLocationEnabled: false,
           ),
-          markers: {myMarker},
-          onCameraMove: (position) {},
-          onTap: (postion) {},
-          rotateGesturesEnabled: true,
-          myLocationEnabled: false,
         ),
       ),
     );
