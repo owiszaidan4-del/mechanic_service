@@ -32,21 +32,21 @@ class NoticView extends StatelessWidget {
                   style: TextStyle(fontSize: 10),
                 ),
               ),
-              ElevatedButton(
-                onPressed: () async {
-                  await FirebaseFirestore.instance
-                      .collection("notifications")
-                      .add({
-                        "body": "اهلا اهلا اهلا",
-                        "isRead": false,
-                        "createdAt": FieldValue.serverTimestamp(),
-                        "targetUserId": "EuHEIiPU2TRGs2W9SAePYXAzL3A2",
-                        "title": "اهلا اويس ",
-                        "type": "worring",
-                      });
-                },
-                child: Text("test"),
-              ),
+              // ElevatedButton(
+              //   onPressed: () async {
+              //     await FirebaseFirestore.instance
+              //         .collection("notifications")
+              //         .add({
+              //           "body": "اهلا اهلا اهلا",
+              //           "isRead": false,
+              //           "createdAt": FieldValue.serverTimestamp(),
+              //           "targetUserId": "EuHEIiPU2TRGs2W9SAePYXAzL3A2",
+              //           "title": "اهلا اويس ",
+              //           "type": "worring",
+              //         });
+              //   },
+              //   child: Text("test"),
+              // ),
             ],
           ),
         ),
