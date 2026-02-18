@@ -4,6 +4,7 @@ class Modelnotifcions {
   final String title;
   final String targetUserId;
   final String type;
+  final bool isRead;
 
   final String body;
   final Timestamp createdAt;
@@ -12,6 +13,7 @@ class Modelnotifcions {
     required this.targetUserId,
     required this.title,
     required this.type,
+    required this.isRead,
 
     required this.createdAt,
   });
@@ -21,7 +23,7 @@ class Modelnotifcions {
       targetUserId: json["targetUserId"],
       title: json["title"],
       type: json["type"],
-
+      isRead: json["isRead"],
       createdAt: json["createdAt"],
     );
   }

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:car_serves/constant.dart';
 import 'package:car_serves/service/ModelNotifcions.dart';
 import 'package:car_serves/widget/notifecation/Notification_ListOf_Messages.dart';
@@ -20,50 +22,62 @@ class _AllnotifecationState extends State<Allnotifecation> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Notification_NumAndType_Notification(
-          txtType: "جميع الرسائل",
-          numOfMessage: "0 غير مقروء",
-        ),
-        const Divider(color: Colors.grey, height: 20, thickness: 1),
-        StreamBuilder(
-          stream: noticStream,
-          builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-            if (snapshot.hasError) {
-              return Text('Something went wrong');
-            }
+    return StreamBuilder(
+      stream: noticStream,
+      builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (snapshot.hasError) {
+          return Text('Something went wrong');
+        }
 
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Text("Loading");
-            }
-            if (!snapshot.hasData) {
-              return Text(
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Text("Loading");
+        }
+
+        if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+          return Column(
+            children: [
+              Notification_NumAndType_Notification(
+                txtType: "جميع الرسائل",
+                numOfMessage: "0 غير مقروء",
+              ),
+              const Divider(color: Colors.grey, height: 20, thickness: 1),
+              Text(
                 "لايوجد رسائل لغاية الان",
                 style: TextStyle(color: Colors.grey),
-              );
-            }
-            final notics = snapshot.data!.docs;
-            List<Modelnotifcions> modelNotics = [];
-            for (var element in notics) {
-              modelNotics.add(Modelnotifcions.fromJson(element));
-            }
-            return Notification_ListOf_Messages(
+              ),
+            ],
+          );
+        }
+
+        List<Modelnotifcions> modelNotics = [];
+
+        final docs = snapshot.data!.docs;
+
+        final unreadCount = docs.where((doc) {
+          modelNotics.add(Modelnotifcions.fromJson(doc));
+          return doc['isRead'] == false;
+        }).length;
+        log(unreadCount.toString());
+
+        return Column(
+          children: [
+            Notification_NumAndType_Notification(
+              txtType: "جميع الرسائل",
+              numOfMessage: "$unreadCount غير مقروء",
+            ),
+            const Divider(color: Colors.grey, height: 20, thickness: 1),
+            Notification_ListOf_Messages(
               itemCount: modelNotics.length,
               itemBuilder: (context, index) {
-                if (modelNotics.isNotEmpty) {
-                  return notifcionsDesin(modelNotics: modelNotics[index]);
-                } else {
-                  return Text(
-                    "لايوجد رسائل لغاية الان",
-                    style: TextStyle(color: Colors.grey),
-                  );
-                }
+                return notifcionsDesin(
+                  modelNotics: modelNotics[index],
+                  idDoc: snapshot.data!.docs[index].id,
+                );
               },
-            );
-          },
-        ),
-      ],
+            ),
+          ],
+        );
+      },
     );
   }
 }

@@ -114,8 +114,8 @@ class Cubitmanageordersstate extends Cubit<Statemanageordersstate> {
               double distance = Geolocator.distanceBetween(
                 data["lat"],
                 data["lng"],
-                31.8339559,
-                35.9461437,
+                lat,
+                lng,
               );
               List<double> lngLatMech = [data["lng"], data["lat"]];
               List<double> lngLatDriver = [lng, lat];

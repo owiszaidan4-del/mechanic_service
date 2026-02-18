@@ -11,8 +11,9 @@ class Notification_ListOf_Messages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.5,
+      height: MediaQuery.of(context).size.height * 0.72,
       child: ListView.builder(
+        reverse: true,
         itemCount: itemCount,
         padding: EdgeInsets.all(8),
         itemBuilder: itemBuilder,
