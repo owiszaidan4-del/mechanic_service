@@ -38,12 +38,12 @@ class Cubittakeimage extends Cubit<Satetakeimage> {
           "carDriverPhoto": carDriverPhotoUrl,
           "carDriverIssuePhoto": carDriverIssuePhotoUrl,
           "stateOfRequest": "done",
+          "timeCompleatedOrder": FieldValue.serverTimestamp(),
         }, SetOptions(merge: true));
         await FirebaseFirestore.instance
             .collection("mechanicOnline")
             .doc(currentUser)
             .update({"available": true});
-        log("done Upload IMages");
       }
     } catch (e) {
       log(e.toString());

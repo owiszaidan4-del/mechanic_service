@@ -18,7 +18,7 @@ class _OffersState extends State<Offers> {
       .collection('notifications')
       .where("type", isEqualTo: "offers")
       .where("targetUserId", isEqualTo: currentUser)
-      .orderBy("createdAt")
+      .orderBy("createdAt", descending: true)
       .snapshots();
 
   @override

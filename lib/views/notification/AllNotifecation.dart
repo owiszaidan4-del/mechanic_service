@@ -17,7 +17,7 @@ class Allnotifecation extends StatefulWidget {
 class _AllnotifecationState extends State<Allnotifecation> {
   final Stream<QuerySnapshot> noticStream = FirebaseFirestore.instance
       .collection('notifications')
-      .orderBy("createdAt")
+      .orderBy("createdAt", descending: true)
       .snapshots();
 
   @override

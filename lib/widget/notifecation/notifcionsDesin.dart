@@ -17,8 +17,6 @@ class notifcionsDesin extends StatelessWidget {
   final String idDoc;
   @override
   Widget build(BuildContext context) {
-    DateTime dateTime = modelNotics.createdAt.toDate();
-    final createdAt = DateFormat('yyyy-mm-dd').format(dateTime).toString();
     return GestureDetector(
       onTap: () async {
         //go to the notic
@@ -52,7 +50,10 @@ class notifcionsDesin extends StatelessWidget {
             ),
             Column(
               children: [
-                titleNotic(modelNotics: modelNotics, createdAt: createdAt),
+                titleNotic(
+                  modelNotics: modelNotics,
+                  createdAt: modelNotics.createdAt,
+                ),
                 bodyNotic(modelNotics: modelNotics),
               ],
             ),

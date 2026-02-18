@@ -18,7 +18,7 @@ class _WorringState extends State<Worring> {
       .collection('notifications')
       .where("type", isEqualTo: "worring")
       .where("targetUserId", isEqualTo: currentUser)
-      .orderBy("createdAt")
+      .orderBy("createdAt", descending: true)
       .snapshots();
 
   @override
