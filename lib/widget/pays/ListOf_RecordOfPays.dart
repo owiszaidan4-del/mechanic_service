@@ -1,27 +1,37 @@
+import 'dart:convert';
+
+import 'package:car_serves/service/modelOrders_.dart';
 import 'package:car_serves/views/RecordTasks.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart' show DateFormat;
 
 class ListOf_RecordOfPays extends StatelessWidget {
   const ListOf_RecordOfPays({
     super.key,
-    required this.date,
+    required this.modelOrders,
     required this.numOfTask,
     required this.totPrice,
   });
-  final String date;
-  final String numOfTask;
+  final List<modelOrders_> modelOrders;
+  final int numOfTask;
+
   final String totPrice;
   @override
   Widget build(BuildContext context) {
+    final Timestamp timestamp = modelOrders.first.timeCompleatedOrder!;
+    final DateTime dateTime = timestamp.toDate();
+    final dateCompleatOrder = DateFormat('EEEE, d MMMM', 'ar').format(dateTime);
     return GestureDetector(
       onTap: () {
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => RecordTasks(
-              date: date,
+              modelOrders: modelOrders,
+              date: dateCompleatOrder,
               numOfTask: numOfTask,
-              totPrice: totPrice,
+              totPrice: totPrice.toString(),
             ),
           ),
         );
@@ -37,7 +47,10 @@ class ListOf_RecordOfPays extends StatelessWidget {
                 children: [
                   Column(
                     children: [
-                      Text(date, style: TextStyle(fontWeight: FontWeight.bold)),
+                      Text(
+                        dateCompleatOrder,
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
                       Text(
                         "عدد الاصلاحات ${numOfTask}",
                         style: TextStyle(color: Colors.grey),

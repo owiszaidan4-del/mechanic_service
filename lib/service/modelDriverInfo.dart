@@ -7,6 +7,7 @@ class ModeldriverInfo {
   final String roule;
   final String urlImage;
   final String userid;
+  final String carId;
 
   ModeldriverInfo({
     required this.careModel,
@@ -17,10 +18,12 @@ class ModeldriverInfo {
     required this.roule,
     required this.urlImage,
     required this.userid,
+    required this.carId,
   });
 
   factory ModeldriverInfo.fromJson(Map<String, dynamic> json) {
     return ModeldriverInfo(
+      carId: json["json"] ?? "",
       careModel: json["careModel"],
       email: json["email"],
       full_name: json["full_name"],

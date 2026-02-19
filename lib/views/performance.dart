@@ -15,7 +15,11 @@ class Performance extends StatelessWidget {
           child: Column(
             spacing: 10,
             children: [
-              Left_Right_Button(text: "الشهر الحالي"),
+              Left_Right_Button(
+                text: "الشهر الحالي",
+                onTapLeft: () {},
+                onTapRight: () {},
+              ),
               Performance_gridView(),
               Performance_Statment(),
               Container(
@@ -32,16 +36,29 @@ class Performance extends StatelessWidget {
 }
 
 class Left_Right_Button extends StatelessWidget {
-  const Left_Right_Button({super.key, required this.text});
+  Left_Right_Button({
+    super.key,
+    required this.text,
+    required this.onTapLeft,
+    required this.onTapRight,
+  });
   final String text;
+  void Function()? onTapRight;
+  void Function()? onTapLeft;
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Performance_Arrow_left_rhight(left: false),
+        GestureDetector(
+          onTap: onTapRight,
+          child: Performance_Arrow_left_rhight(left: false),
+        ),
         Text(text),
-        Performance_Arrow_left_rhight(left: true),
+        GestureDetector(
+          onTap: onTapLeft,
+          child: Performance_Arrow_left_rhight(left: true),
+        ),
       ],
     );
   }

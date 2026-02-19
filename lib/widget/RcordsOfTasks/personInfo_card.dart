@@ -12,10 +12,11 @@ class personInfo_card extends StatelessWidget {
   final String proplemVechel;
   @override
   Widget build(BuildContext context) {
+    final listStr = name.split(' ');
+    final String nameDriver = '${listStr[0]} ${listStr[listStr.length - 1]}';
     return Container(
-      width: MediaQuery.of(context).size.width * 0.6,
       height: MediaQuery.of(context).size.height * 0.3,
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
@@ -28,12 +29,13 @@ class personInfo_card extends StatelessWidget {
         children: [
           /// العنوان
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(Icons.badge, color: Colors.blue),
               SizedBox(width: 8),
               Text(
                 'معلومات العميل',
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
               ),
             ],
           ),
@@ -43,12 +45,27 @@ class personInfo_card extends StatelessWidget {
           /// الاسم
           Row(
             children: [
-              Icon(Icons.person, color: Colors.blue),
-              SizedBox(width: 10),
-              Text('الاسم: ', style: TextStyle(fontWeight: FontWeight.bold)),
-              Text(
-                name,
-                style: TextStyle(fontSize: 10, overflow: TextOverflow.ellipsis),
+              Row(
+                children: [
+                  Icon(Icons.person, color: Colors.blue),
+                  SizedBox(width: 10),
+                  Text(
+                    'الاسم: ',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10),
+                  ),
+                ],
+              ),
+
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.4,
+                child: Text(
+                  nameDriver,
+                  style: TextStyle(
+                    fontSize: 10,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  maxLines: 1,
+                ),
               ),
             ],
           ),
@@ -60,7 +77,10 @@ class personInfo_card extends StatelessWidget {
             children: [
               Icon(Icons.phone, color: Colors.blue),
               SizedBox(width: 10),
-              Text('الهاتف: ', style: TextStyle(fontWeight: FontWeight.bold)),
+              Text(
+                'الهاتف: ',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10),
+              ),
               Text(phoneNumber, style: TextStyle(fontSize: 10)),
             ],
           ),
@@ -69,13 +89,28 @@ class personInfo_card extends StatelessWidget {
 
           /// المشكلة
           Row(
+            spacing: 8,
             children: [
-              Icon(Icons.car_repair, color: Colors.blue),
-              SizedBox(width: 10),
-              Text('المشكلة: ', style: TextStyle(fontWeight: FontWeight.bold)),
-              Text(
-                proplemVechel,
-                style: TextStyle(fontSize: 10, overflow: TextOverflow.ellipsis),
+              Row(
+                children: [
+                  Icon(Icons.car_repair, color: Colors.blue),
+                  Text(
+                    'المشكلة: ',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10),
+                  ),
+                ],
+              ),
+
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.34,
+                child: Text(
+                  proplemVechel,
+                  style: TextStyle(
+                    fontSize: 10,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  maxLines: 2,
+                ),
               ),
             ],
           ),

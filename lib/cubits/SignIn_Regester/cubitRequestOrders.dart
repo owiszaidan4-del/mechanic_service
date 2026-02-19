@@ -6,6 +6,7 @@ import 'package:car_serves/cubits/SignIn_Regester/stateRequestOrders.dart';
 import 'package:car_serves/service/getArrivalTime.dart';
 import 'package:car_serves/service/modelDriverInfo.dart';
 import 'package:car_serves/service/modelOrders.dart';
+import 'package:car_serves/views/Awards.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,13 +27,13 @@ class Cubitrequestorders extends Cubit {
         .where("stateOfRequest", isEqualTo: "pending")
         .orderBy("timeOrder", descending: false)
         .snapshots()
-        .listen((event) {
+        .listen((event) async {
           List<Modelorders> model = [];
           if (event.docs.isNotEmpty) {
             for (var element in event.docs) {
               model.add(Modelorders.fromJson(element));
             }
-            findMechanic(model, event);
+            await findMechanic(model, event);
           }
         });
   }
@@ -67,7 +68,7 @@ class Cubitrequestorders extends Cubit {
           }
           distanceToDriver = mindistance;
 
-          modifyOrderStatus(
+          await modifyOrderStatus(
             idMechanic: id,
             modelOrder: model[i],
             idDocs: event.docs[i].id,
@@ -76,6 +77,7 @@ class Cubitrequestorders extends Cubit {
       }
     } catch (e) {
       log(e.toString());
+      log("1111111111111111111111");
     }
   }
 
@@ -92,7 +94,7 @@ class Cubitrequestorders extends Cubit {
       // "timeOfassigend": FieldValue.serverTimestamp(),
       // }, SetOptions(merge: true));
       if (idMechanic == currentUser) {
-        receivingNewRequest(
+        await receivingNewRequest(
           modelOrder: modelOrder,
           idDocs: idDocs,
           idMechanic: idMechanic,
@@ -100,6 +102,7 @@ class Cubitrequestorders extends Cubit {
       }
     } catch (e) {
       log(e.toString());
+      log("222222222222222222222222");
     }
   }
 
@@ -193,6 +196,7 @@ class Cubitrequestorders extends Cubit {
         return model;
       }
     } catch (e) {
+      log(idUser);
       log(e.toString());
 
       return null;

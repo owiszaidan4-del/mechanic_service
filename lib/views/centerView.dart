@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:car_serves/cubits/SignIn_Regester/StateManageOrdersState.dart';
 import 'package:car_serves/cubits/SignIn_Regester/States_RegesterAuthTransaction.dart';
 import 'package:car_serves/cubits/SignIn_Regester/cubitManageOrdersState.dart';
@@ -85,7 +83,6 @@ class _CenterviewState extends State<Centerview> {
               setState(() {
                 isOpenMenue = !isOpenMenue;
               });
-              log(isOpenMenue.toString());
             },
           ),
           Menue(

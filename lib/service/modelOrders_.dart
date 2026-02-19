@@ -9,8 +9,8 @@ class modelOrders_ {
   final double arrivaltime;
   final double distanceToDriver;
   final String placemark;
-  final String timeOfassigend;
-  final String timeCompleatedOrder;
+  final Timestamp? timeOfassigend;
+  final Timestamp? timeCompleatedOrder;
 
   final String timeOrder;
   final String stateOfRequest;
@@ -30,16 +30,13 @@ class modelOrders_ {
   });
 
   factory modelOrders_.fromJson(Map<String, dynamic> json) {
-    final Timestamp timestamp = json["timeCompleatedOrder"];
-    final DateTime dateTime = timestamp.toDate();
-    final dateCompleatOrder = DateFormat('EEEE, d MMMM', 'ar').format(dateTime);
     return modelOrders_(
       arrivaltime: json["arrivaltime"],
       descreption: json["descreption"],
       distanceToDriver: json["distanceToDriver"],
       placemark: json["placemark"],
-      timeOfassigend: json["timeOfassigend"].toString(),
-      timeCompleatedOrder: dateCompleatOrder,
+      timeOfassigend: json["timeOfassigend"],
+      timeCompleatedOrder: json["timeCompleatedOrder"],
       id: json["id"],
       lat: json["lat"],
       lng: json["lng"],

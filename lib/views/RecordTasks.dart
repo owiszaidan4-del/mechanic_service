@@ -1,4 +1,5 @@
 import 'package:car_serves/constant.dart';
+import 'package:car_serves/service/modelOrders_.dart';
 import 'package:car_serves/widget/RcordsOfTasks/RecordOfTasks_ListOfRecordsOfTasks.dart';
 import 'package:car_serves/widget/RcordsOfTasks/RecordTasks_DoubleFrame_Compleate.dart';
 import 'package:car_serves/widget/RcordsOfTasks/RecordTasks_DoubleFrame_unCompleate.dart';
@@ -6,13 +7,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class RecordTasks extends StatelessWidget {
-  RecordTasks({
+  const RecordTasks({
     required this.date,
     required this.numOfTask,
     required this.totPrice,
+    required this.modelOrders,
   });
   final String date;
-  final String numOfTask;
+  final List<modelOrders_> modelOrders;
+  final int numOfTask;
   final String totPrice;
 
   @override
@@ -72,10 +75,12 @@ class RecordTasks extends StatelessWidget {
                 child: Row(
                   spacing: 10,
                   children: [
-                    RecordTasks_DoubleFrame_Compleate(numOfTask: numOfTask),
+                    RecordTasks_DoubleFrame_Compleate(
+                      numOfTask: numOfTask.toString(),
+                    ),
                     RecordTasks_DoubleFrame_unCompleate(
                       width: width,
-                      numOfTask: numOfTask,
+                      numOfTask: 0.toString(),
                     ),
                   ],
                 ),
@@ -83,10 +88,11 @@ class RecordTasks extends StatelessWidget {
               SizedBox(
                 height: height * 0.6,
                 child: ListView.builder(
-                  itemCount: 4,
+                  itemCount: modelOrders.length,
                   itemBuilder: (context, index) {
                     return RecordOfTasks_ListOfRecordsOfTasks(
-                      width: width,
+                      modelorder: modelOrders[index],
+
                       totPrice: totPrice,
                     );
                   },
