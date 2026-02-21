@@ -11,6 +11,7 @@ class modelOrders_ {
   final String placemark;
   final Timestamp? timeOfassigend;
   final Timestamp? timeCompleatedOrder;
+  final double wages;
 
   final String timeOrder;
   final String stateOfRequest;
@@ -27,6 +28,7 @@ class modelOrders_ {
     required this.timeOfassigend,
     required this.arrivaltime,
     required this.timeCompleatedOrder,
+    required this.wages,
   });
 
   factory modelOrders_.fromJson(Map<String, dynamic> json) {
@@ -42,6 +44,7 @@ class modelOrders_ {
       lng: json["lng"],
       timeOrder: json["timeOrder"].toString(),
       stateOfRequest: json["stateOfRequest"],
+      wages: json["wages"] ?? 0.0,
     );
   }
 }

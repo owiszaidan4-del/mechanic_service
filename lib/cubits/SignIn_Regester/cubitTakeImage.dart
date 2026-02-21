@@ -16,6 +16,7 @@ class Cubittakeimage extends Cubit<Satetakeimage> {
     required String idDoc,
     required File? pickedCarFile1,
     required File? pickedCarFile2,
+    required double? amont,
   }) async {
     try {
       if (pickedCarFile1 != null && pickedCarFile2 != null) {
@@ -39,6 +40,7 @@ class Cubittakeimage extends Cubit<Satetakeimage> {
           "carDriverIssuePhoto": carDriverIssuePhotoUrl,
           "stateOfRequest": "done",
           "timeCompleatedOrder": FieldValue.serverTimestamp(),
+          "wages": amont,
         }, SetOptions(merge: true));
         await FirebaseFirestore.instance
             .collection("mechanicOnline")

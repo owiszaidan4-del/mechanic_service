@@ -1,8 +1,11 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:car_serves/cubits/SignIn_Regester/cubitTakeImage.dart';
 import 'package:car_serves/widget/SheetArrivedMechanic/widgetTake_Photo.dart';
+import 'package:car_serves/widget/customTextFeild.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -50,6 +53,7 @@ class _daownloadImagesEndedOfTaskState
     extends State<daownloadImagesEndedOfTask> {
   File? imageFile1;
   File? imageFile2;
+  String amount = "";
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -123,12 +127,50 @@ class _daownloadImagesEndedOfTaskState
                   style: TextStyle(overflow: TextOverflow.clip),
                 ),
               ),
+              /////////المبلغ المكتسب من العميل
+              Material(
+                child: Center(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    margin: EdgeInsets.all(8),
+                    height: 50,
+
+                    child: TextFormField(
+                      cursorHeight: 10,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        hintText: "ادخل المبلغ المحصل من العميل",
+                        hintStyle: TextStyle(
+                          fontSize: 10,
+                          color: Colors.blueGrey,
+                        ),
+                        filled: true,
+                        suffixIcon: Icon(Icons.monetization_on),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                      onChanged: (value) {
+                        amount = value;
+                      },
+                    ),
+                  ),
+                ),
+              ),
+              ///////////
+              ///
               GestureDetector(
                 onTap: () {
-                  if (imageFile1 != null && imageFile2 != null) {
+                  if (imageFile1 != null &&
+                      imageFile2 != null &&
+                      amount != "") {
                     BlocProvider.of<Cubittakeimage>(
                       context,
                     ).uploadImageFromDevice(
+                      amont: double.parse(amount),
+
                       idDoc: widget.idDoc,
                       pickedCarFile1: imageFile1,
                       pickedCarFile2: imageFile2,
@@ -138,7 +180,8 @@ class _daownloadImagesEndedOfTaskState
                 },
                 child: Container(
                   decoration: BoxDecoration(
-                    color: imageFile1 != null && imageFile2 != null
+                    color:
+                        imageFile1 != null && imageFile2 != null && amount != ""
                         ? Colors.blueGrey
                         : Colors.blueGrey.withOpacity(0.4),
                     borderRadius: BorderRadius.circular(10),
