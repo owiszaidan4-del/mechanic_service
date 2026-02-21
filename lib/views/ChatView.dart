@@ -26,7 +26,7 @@ class Chatview extends StatefulWidget {
     required this.initText,
   });
   final String? userId;
-  final ModeldriverInfo modelDrider;
+  final ModeldriverInfo? modelDrider;
   bool chatWithAdmin = false;
   final String initText;
   //final Modelcurrentuser userModel;
@@ -73,8 +73,8 @@ class _ChatviewState extends State<Chatview> {
               )
             : appBarOfChatView(
                 chatWithAdmin: widget.chatWithAdmin,
-                urlImage: widget.modelDrider.urlImage,
-                text: widget.modelDrider.full_name,
+                urlImage: widget.modelDrider!.urlImage,
+                text: widget.modelDrider!.full_name,
               ),
       ),
       body: Column(
