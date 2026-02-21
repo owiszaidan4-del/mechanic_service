@@ -1,23 +1,15 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:developer';
 
 import 'package:car_serves/constant.dart';
 import 'package:car_serves/cubits/SignIn_Regester/StateManageOrdersState.dart';
-import 'package:car_serves/cubits/SignIn_Regester/States_RegesterAuthTransaction.dart';
-import 'package:car_serves/cubits/SignIn_Regester/cubitGetAll__infoUsers.dart';
 import 'package:car_serves/cubits/SignIn_Regester/cubitGetStateOfWork.dart';
 import 'package:car_serves/cubits/SignIn_Regester/cubitManageOrdersState.dart';
-import 'package:car_serves/cubits/SignIn_Regester/stateGetAll_infoUsers.dart';
 import 'package:car_serves/cubits/SignIn_Regester/stateGetStateOfWork.dart';
-import 'package:car_serves/service/getMyLocation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class Mapview extends StatefulWidget {
   @override
