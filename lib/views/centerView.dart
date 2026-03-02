@@ -30,7 +30,7 @@ class _CenterviewState extends State<Centerview> {
   @override
   void initState() {
     super.initState();
-    context.read<Cubitrequestorders>().requestorders();
+    context.read<Cubitmanageordersstate>().manageStateOfOrders();
     _checkLocationPermission();
   }
 

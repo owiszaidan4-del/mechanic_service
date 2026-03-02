@@ -13,6 +13,18 @@ class appBar_of_sheet_new_order extends StatelessWidget {
         await FirebaseFirestore.instance.collection("orders").doc(idDoc).update(
           {"stateOfRequest": "accepted"},
         );
+        await FirebaseFirestore.instance
+            .collection("mechanicPerformance")
+            .doc(currentUser)
+            .collection("weeklyState")
+            .doc(getDocName())
+            .update({
+              "acceptedCount": FieldValue.increment(1),
+              "totalWorkMinutes": FieldValue.increment(0),
+              "totalRequests": FieldValue.increment(0),
+              "completedCount": FieldValue.increment(0),
+              "cancelledCount": FieldValue.increment(0),
+            });
       },
       child: Container(
         height: MediaQuery.of(context).size.height * 0.07,
@@ -27,4 +39,12 @@ class appBar_of_sheet_new_order extends StatelessWidget {
       ),
     );
   }
+}
+
+String getDocName() {
+  DateTime now = DateTime.now();
+  DateTime timeOneDayInYear = DateTime(now.year, 1, 1);
+  final dayspassed = now.difference(timeOneDayInYear).inDays;
+  final weekNum = ((dayspassed + timeOneDayInYear.weekday) / 7).ceil();
+  return "${now.year}-W$weekNum";
 }

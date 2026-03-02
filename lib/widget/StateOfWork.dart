@@ -32,14 +32,26 @@ class _StateOfWorkState extends State<StateOfWork> {
               alignment: Alignment.topCenter,
               child: GestureDetector(
                 onTap: () async {
-                  await FirebaseFirestore.instance
+                  final doc = await FirebaseFirestore.instance
                       .collection("mechanicOnline")
                       .doc(currentUser!)
-                      .update({
-                        "stateOfWork": !stateOfWork,
-                        "available": !stateOfWork,
-                        "time": FieldValue.serverTimestamp(),
-                      });
+                      .get();
+                  if (doc.exists) {
+                    if (doc.data() != null) {
+                      if (doc.data()!["available"]) {
+                        await FirebaseFirestore.instance
+                            .collection("mechanicOnline")
+                            .doc(currentUser!)
+                            .update({
+                              "stateOfWork": !stateOfWork,
+                              "available": !stateOfWork,
+                              "time": FieldValue.serverTimestamp(),
+                            });
+                      } else {
+                        print("you are not alowded to");
+                      }
+                    }
+                  }
                 },
                 child: AnimatedContainer(
                   duration: Duration(milliseconds: 300),

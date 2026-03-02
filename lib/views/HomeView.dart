@@ -43,9 +43,9 @@ class _Homeview2State extends State<Homeview2> {
         BlocProvider(
           create: (context) => Cubitgetstateofwork()..getstateofwork(),
         ),
-        BlocProvider(
-          create: (context) => Cubitrequestorders()..requestorders(),
-        ),
+        // BlocProvider(
+        //   create: (context) => Cubitrequestorders()..requestorders(),
+        // ),
         BlocProvider(
           create: (context) => Cubitmanageordersstate()..manageStateOfOrders(),
         ),

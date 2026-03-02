@@ -91,7 +91,7 @@ class _SheetAcceptedOrderState extends State<SheetAcceptedOrder> {
                         ),
                         Divider(),
                         ArrivalTime_of_sheet_new_order(
-                          arrivaltime: widget.modelorders.arrivaltime,
+                          arrivaltime: widget.modelorders.arrivalTime,
                         ),
                         Divider(),
                         PickUp_of_sheet_new_order(

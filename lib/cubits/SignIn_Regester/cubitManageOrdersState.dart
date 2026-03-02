@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:car_serves/constant.dart';
@@ -14,16 +15,19 @@ class Cubitmanageordersstate extends Cubit<Statemanageordersstate> {
   Cubitmanageordersstate() : super(InetialStete());
   StreamSubscription? _ordersSub;
   StreamSubscription? _distanceSub;
+  final Set<String> _processedPerformanceOrders = {};
+
   manageStateOfOrders() async {
+    log("Start:manageStateOfOrders");
     emit(InetialStete());
     _ordersSub?.cancel();
     _ordersSub = FirebaseFirestore.instance
         .collection("orders")
+        .where("idMecanic", isEqualTo: currentUser)
         .where(
           "stateOfRequest",
-          whereIn: ["assigend", "accepted", "arrived", "done"],
+          whereIn: ["assigend", "accepted", "arrived", "done", "canceled"],
         )
-        .where("idMecanic", isEqualTo: currentUser)
         .snapshots()
         .listen((event) async {
           _distanceSub?.cancel();
@@ -81,6 +85,7 @@ class Cubitmanageordersstate extends Cubit<Statemanageordersstate> {
                     modelorders: modelorders,
                   ),
                 );
+                _processedPerformanceOrders.clear();
               }
             } else if (orderInfo.data()["stateOfRequest"] == "done") {
               final idDoc = event.docs.first.id;
@@ -91,6 +96,8 @@ class Cubitmanageordersstate extends Cubit<Statemanageordersstate> {
                   .collection("orders")
                   .doc(idDoc)
                   .update({"stateOfRequest": "completed"});
+              emit(InetialStete());
+            } else if (orderInfo.data()["stateOfRequest"] == "canceled") {
               emit(InetialStete());
             }
           }
@@ -112,11 +119,11 @@ class Cubitmanageordersstate extends Cubit<Statemanageordersstate> {
             final data = event.data();
             if (data != null) {
               double distance = Geolocator.distanceBetween(
-                // data["lat"],
-                // data["lng"],
-                31.945368,
+                data["lat"],
+                data["lng"],
+                // 31.945368,
 
-                35.928371,
+                // 35.928371,
                 lat,
                 lng,
               );
@@ -127,7 +134,10 @@ class Cubitmanageordersstate extends Cubit<Statemanageordersstate> {
                 lngLatDriver: lngLatDriver,
               ).getarrivaltime();
               FirebaseFirestore.instance.collection("orders").doc(idDoc).update(
-                {"distanceToDriver": distance, "arrivaltime": arrivalTime},
+                {
+                  "distanceToDriver": distance.round(),
+                  "arrivalTime": arrivalTime,
+                },
               );
               if (distance < 50) {
                 await FirebaseFirestore.instance
@@ -160,7 +170,7 @@ Future<ModeldriverInfo?> getDriverInfoAsModel(String idUser) async {
       return model;
     }
   } catch (e) {
-    // log(e.toString());
+    log(e.toString());
     // emit(StateProplem(err: e.toString()));
     return null;
   }

@@ -106,7 +106,7 @@ class IconGotoGoogleMap_IconManageOrders extends StatelessWidget {
 
                     builder: (context) {
                       return expectedTimeLayOut(
-                        arrivalTime: modelorders.arrivaltime,
+                        arrivalTime: modelorders.arrivalTime,
                         idDoc: idDoc,
                       );
                     },

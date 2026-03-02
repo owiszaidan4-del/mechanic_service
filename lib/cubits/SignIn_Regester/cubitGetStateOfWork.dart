@@ -19,7 +19,7 @@ class Cubitgetstateofwork extends Cubit<Stategetstateofwork> {
           .doc(currentUser)
           .snapshots()
           .listen((event) {
-            if (event.exists && event.data() != null) {
+            if (event.exists) {
               final bool stateofwork = event.data()!["stateOfWork"];
               final bool available = event.data()!["available"];
 

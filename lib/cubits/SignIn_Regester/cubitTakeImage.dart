@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:car_serves/constant.dart';
 import 'package:car_serves/cubits/SignIn_Regester/sateTakeImage.dart';
 import 'package:car_serves/cubits/SignIn_Regester/stateGetAll_infoUsers.dart';
+import 'package:car_serves/widget/sheetNewOrderWidget/appBar_of_sheet_new_order.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,6 +21,12 @@ class Cubittakeimage extends Cubit<Satetakeimage> {
   }) async {
     try {
       if (pickedCarFile1 != null && pickedCarFile2 != null) {
+        await FirebaseFirestore.instance
+            .collection("mechanicPerformance")
+            .doc(currentUser)
+            .collection("weeklyState")
+            .doc(getDocName())
+            .update({"completedCount": FieldValue.increment(1)});
         final lastPath1 = pickedCarFile1.path.split("/").last;
         final lastPath2 = pickedCarFile1.path.split("/").last;
 

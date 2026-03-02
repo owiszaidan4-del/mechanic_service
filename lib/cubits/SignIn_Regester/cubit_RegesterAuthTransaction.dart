@@ -69,7 +69,16 @@ class CubitRegesterauthtransaction
     }
     //fireStore
     CollectionReference users = FirebaseFirestore.instance.collection('users');
-
+    await FirebaseFirestore.instance
+        .collection("mechanicOnline")
+        .doc(current)
+        .set({
+          "available": false,
+          "lat": 0.00,
+          "lng": 0.0,
+          "stateOfWork": false,
+          "time": FieldValue.serverTimestamp(),
+        });
     // Call the user's CollectionReference to add a new user
     return users
         .doc(current)

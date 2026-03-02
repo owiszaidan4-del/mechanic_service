@@ -70,7 +70,7 @@ class sheet_new_order extends StatelessWidget {
                         ),
                         Divider(),
                         ArrivalTime_of_sheet_new_order(
-                          arrivaltime: modelorders.arrivaltime,
+                          arrivaltime: modelorders.arrivalTime,
                         ),
                         Divider(),
                         PickUp_of_sheet_new_order(

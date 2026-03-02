@@ -6,8 +6,8 @@ class modelOrders_ {
   final String id;
   final double lat;
   final double lng;
-  final double arrivaltime;
-  final double distanceToDriver;
+  final double arrivalTime;
+  final int distanceToDriver;
   final String placemark;
   final Timestamp? timeOfassigend;
   final Timestamp? timeCompleatedOrder;
@@ -26,18 +26,18 @@ class modelOrders_ {
     required this.placemark,
     required this.distanceToDriver,
     required this.timeOfassigend,
-    required this.arrivaltime,
+    required this.arrivalTime,
     required this.timeCompleatedOrder,
     required this.wages,
   });
 
   factory modelOrders_.fromJson(Map<String, dynamic> json) {
     return modelOrders_(
-      arrivaltime: json["arrivaltime"],
+      arrivalTime: json["arrivalTime"],
       descreption: json["descreption"],
       distanceToDriver: json["distanceToDriver"],
       placemark: json["placemark"],
-      timeOfassigend: json["timeOfassigend"],
+      timeOfassigend: json["timeOfAssigned"],
       timeCompleatedOrder: json["timeCompleatedOrder"],
       id: json["id"],
       lat: json["lat"],
