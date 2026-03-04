@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Performance_Statment extends StatelessWidget {
-  const Performance_Statment({super.key});
-
+  const Performance_Statment({super.key, required this.performance});
+  final int performance;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -36,7 +36,12 @@ class Performance_Statment extends StatelessWidget {
               SizedBox(width: 20),
               Column(
                 children: [
-                  Row(children: [Text("تقييمك الحالي هو   "), Text("--")]),
+                  Row(
+                    children: [
+                      Text("تقييمك الحالي هو "),
+                      Text("${performance.round()}%"),
+                    ],
+                  ),
                   Text(
                     " سيظهر تقييمك عند العملاء ",
                     style: TextStyle(fontSize: 8),
@@ -44,9 +49,15 @@ class Performance_Statment extends StatelessWidget {
                   Row(
                     children: [
                       Icon(Icons.star_border_purple500, color: Colors.brown),
-                      Text(
-                        "احرص دائما ان يكون تقييمك بين 2 و 1",
-                        style: TextStyle(fontSize: 8),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.5,
+
+                        child: Text(
+                          "احرص دائما ان يكون تقييمك اعلى من 50%",
+                          style: TextStyle(fontSize: 8),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 2,
+                        ),
                       ),
                     ],
                   ),

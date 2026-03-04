@@ -38,7 +38,10 @@ class _StateOfWorkState extends State<StateOfWork> {
                       .get();
                   if (doc.exists) {
                     if (doc.data() != null) {
-                      if (doc.data()!["available"]) {
+                      if (!doc.data()!["available"] &&
+                          doc.data()!["stateOfWork"]) {
+                        print("you are not alowded to");
+                      } else {
                         await FirebaseFirestore.instance
                             .collection("mechanicOnline")
                             .doc(currentUser!)
@@ -47,8 +50,6 @@ class _StateOfWorkState extends State<StateOfWork> {
                               "available": !stateOfWork,
                               "time": FieldValue.serverTimestamp(),
                             });
-                      } else {
-                        print("you are not alowded to");
                       }
                     }
                   }

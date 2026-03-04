@@ -119,11 +119,11 @@ class Cubitmanageordersstate extends Cubit<Statemanageordersstate> {
             final data = event.data();
             if (data != null) {
               double distance = Geolocator.distanceBetween(
-                data["lat"],
-                data["lng"],
-                // 31.945368,
+                // data["lat"],
+                // data["lng"],
+                31.945368,
 
-                // 35.928371,
+                35.928371,
                 lat,
                 lng,
               );

@@ -6,6 +6,7 @@ import 'package:car_serves/cubits/SignIn_Regester/sateTakeImage.dart';
 import 'package:car_serves/cubits/SignIn_Regester/stateGetAll_infoUsers.dart';
 import 'package:car_serves/widget/sheetNewOrderWidget/appBar_of_sheet_new_order.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -21,12 +22,6 @@ class Cubittakeimage extends Cubit<Satetakeimage> {
   }) async {
     try {
       if (pickedCarFile1 != null && pickedCarFile2 != null) {
-        await FirebaseFirestore.instance
-            .collection("mechanicPerformance")
-            .doc(currentUser)
-            .collection("weeklyState")
-            .doc(getDocName())
-            .update({"completedCount": FieldValue.increment(1)});
         final lastPath1 = pickedCarFile1.path.split("/").last;
         final lastPath2 = pickedCarFile1.path.split("/").last;
 
@@ -42,6 +37,7 @@ class Cubittakeimage extends Cubit<Satetakeimage> {
         await ref2.putFile(pickedCarFile2);
         final carDriverPhotoUrl = await ref1.getDownloadURL();
         final carDriverIssuePhotoUrl = await ref2.getDownloadURL();
+
         await FirebaseFirestore.instance.collection("orders").doc(idDoc).set({
           "carDriverPhoto": carDriverPhotoUrl,
           "carDriverIssuePhoto": carDriverIssuePhotoUrl,
@@ -53,9 +49,41 @@ class Cubittakeimage extends Cubit<Satetakeimage> {
             .collection("mechanicOnline")
             .doc(currentUser)
             .update({"available": true});
+        await performanceCalc(idDoc);
       }
     } catch (e) {
       log(e.toString());
     }
+  }
+
+  Future<void> performanceCalc(String idDoc) async {
+    final snapshot = await FirebaseFirestore.instance
+        .collection("orders")
+        .doc(idDoc)
+        .get();
+    if (!snapshot.exists) {
+      throw Exception("snapshot order in cubit TakeImage not exists");
+    }
+    final dataOrder = snapshot.data();
+    if (dataOrder == null) {
+      log("dataOrder is eqial null");
+      return;
+    }
+    final timeCompleatOrder = dataOrder["timeCompleatedOrder"] as Timestamp;
+    final timeAcceptedOrder = dataOrder["timeAcceptedOrder"] as Timestamp;
+    final toDateTimeAcceptedOrder = timeAcceptedOrder.toDate();
+    final todateTimeCompleat = timeCompleatOrder.toDate();
+    final diff = todateTimeCompleat.difference(toDateTimeAcceptedOrder);
+    final diffMinutes = diff.inMinutes < 0 ? 0 : diff.inMinutes;
+    log(diff.inMinutes.toString());
+    await FirebaseFirestore.instance
+        .collection("mechanicPerformance")
+        .doc(currentUser)
+        .collection("weeklyState")
+        .doc(getDocName())
+        .update({
+          "completedCount": FieldValue.increment(1),
+          "totalWorkMinutes": FieldValue.increment(diffMinutes),
+        });
   }
 }

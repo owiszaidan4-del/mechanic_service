@@ -6,11 +6,12 @@ class Performance_itemOfGrid extends StatelessWidget {
     super.key,
     required this.image,
     required this.txt,
+    required this.value,
   });
 
   final ImageProvider<Object> image;
   final String txt;
-
+  final String value;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -54,7 +55,7 @@ class Performance_itemOfGrid extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "-",
+                      value,
                       style: TextStyle(color: Colors.black, fontSize: 15),
                     ),
                     Text(

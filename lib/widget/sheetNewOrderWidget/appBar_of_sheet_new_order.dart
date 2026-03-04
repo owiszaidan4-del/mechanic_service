@@ -10,9 +10,13 @@ class appBar_of_sheet_new_order extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
-        await FirebaseFirestore.instance.collection("orders").doc(idDoc).update(
-          {"stateOfRequest": "accepted"},
-        );
+        await FirebaseFirestore.instance
+            .collection("orders")
+            .doc(idDoc)
+            .update({
+              "stateOfRequest": "accepted",
+              "timeAcceptedOrder": FieldValue.serverTimestamp(),
+            });
         await FirebaseFirestore.instance
             .collection("mechanicPerformance")
             .doc(currentUser)
