@@ -31,7 +31,9 @@ class MenueOfCenterView extends StatelessWidget {
         ),
 
         catogriesOfMenue(
-          onTap: () {},
+          onTap: () {
+            Navigator.pushNamed(context, "SettingsView");
+          },
           text: "الاعدادات",
           icon: Icon(Icons.settings),
         ),

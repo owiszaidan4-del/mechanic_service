@@ -8,6 +8,7 @@ import 'package:car_serves/views/Awards.dart';
 import 'package:car_serves/views/ChatView.dart';
 import 'package:car_serves/views/PaysRecord.dart';
 import 'package:car_serves/views/RecordTasks.dart';
+import 'package:car_serves/views/Settings/SettingsView.dart';
 import 'package:car_serves/views/centerView.dart';
 import 'package:car_serves/views/mapView.dart';
 import 'package:car_serves/views/notifacation.dart';
@@ -59,6 +60,7 @@ class _Homeview2State extends State<Homeview2> {
           "Paysrecord": (context) => Paysrecord(),
           "ProfileView": (context) => Profileview(),
           "Awards": (context) => Awards(),
+          "SettingsView": (context) => Settingsview(),
         },
         debugShowCheckedModeBanner: false,
         home: Scaffold(body: Centerview()),

@@ -109,6 +109,10 @@ flutter:
     - asset/phone (1).png
     - asset/carDriver.png
     - asset/add-photo.png
+    - asset/profile1.png
+    - asset/password.png
+    - asset/notification.png
+    - asset/help-web-button.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
