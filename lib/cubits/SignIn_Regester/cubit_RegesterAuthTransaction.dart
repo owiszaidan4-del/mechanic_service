@@ -95,6 +95,7 @@ class CubitRegesterauthtransaction
           'email': email,
           'specialization': specialization,
           "performance": 0,
+          "urlImage": null,
         })
         .then((value) => log("User Added"))
         .catchError((error) => log("Failed to add user: $error"));

@@ -13,7 +13,7 @@ class MenueOfCenterView extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomScrollView(
       slivers: [
-        topConteanerProfilePage(pop: false),
+        TopConteanerProfilePage(pop: false),
         GridOfMenue(items: items),
         catogriesOfMenue(
           onTap: () {

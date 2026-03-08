@@ -35,7 +35,7 @@ class Profileview extends StatelessWidget {
         style: TextStyle(color: Colors.white),
         child: CustomScrollView(
           slivers: [
-            topConteanerProfilePage(pop: true),
+            TopConteanerProfilePage(pop: true),
 
             SliverGrid.builder(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
