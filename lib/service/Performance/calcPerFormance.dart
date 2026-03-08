@@ -1,5 +1,9 @@
 import 'dart:math';
 
+import 'package:car_serves/constant.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
+
 class Calcperformance {
   final int acceptedCount;
   final int cancelledCount;
@@ -27,7 +31,9 @@ class Calcperformance {
             (totalWorkMinutesScore * workMinutesW) +
             (avgAcceptedOrderScore * avgAcceptedOrderW)) -
         (cancelOrderScore * cancelOrderW);
-
+    FirebaseFirestore.instance.collection("users").doc(currentUser).update({
+      "performance": totScore.clamp(0, 100),
+    });
     return totScore.clamp(0, 100);
   }
 

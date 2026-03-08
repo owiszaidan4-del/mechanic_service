@@ -44,7 +44,15 @@ class _PaysrecordState extends State<Paysrecord> {
             if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
               return Column(
                 children: [
-                  _buildWeekSwitcher(text: "لا يوجد دفعات لهذا الاسبوع"),
+                  Left_Right_Button(
+                    text: "لايوجد دفعات لهذا الاسبوع",
+                    onTapLeft: () {
+                      if (_weekIndex != 1) {
+                        setState(() => _weekIndex--);
+                      }
+                    },
+                    onTapRight: () {},
+                  ),
                 ],
               );
             }

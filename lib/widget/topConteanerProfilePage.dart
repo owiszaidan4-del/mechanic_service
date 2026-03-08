@@ -111,7 +111,7 @@ class _ProfileHeader extends StatelessWidget {
                             size: 20,
                           ),
                           Text(
-                            "${user.performance}",
+                            "${user.performance}%",
                             style: TextStyle(
                               fontSize: 10,
                               color: Colors.white.withOpacity(0.4),
