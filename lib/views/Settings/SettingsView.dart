@@ -1,6 +1,10 @@
+import 'package:car_serves/views/Settings/EditPasswordView.dart';
 import 'package:car_serves/views/Settings/editProfileImage.dart';
 import 'package:car_serves/views/Settings/rowSettingsWidget.dart';
+import 'package:car_serves/views/signIn.dart';
 import 'package:car_serves/widget/setting/cardSetting.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 class Settingsview extends StatelessWidget {
@@ -31,7 +35,14 @@ class Settingsview extends StatelessWidget {
                       urlImage: "asset/profile1.png",
                     ),
                     rowSettingsWidget(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Editpasswordview(),
+                          ),
+                        );
+                      },
                       text: "كلمة السر",
                       urlImage: "asset/password.png",
                     ),
@@ -57,6 +68,14 @@ class Settingsview extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(bottom: 10.0),
               child: GestureDetector(
+                onTap: () {
+                  FirebaseAuth.instance.signOut();
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (context) => Homeview1()),
+                    (route) => false,
+                  );
+                },
                 child: Text("تسجيل خروج", style: TextStyle(color: Colors.red)),
               ),
             ),

@@ -5,6 +5,8 @@ import 'package:flutter/services.dart';
 class customTextFeild extends StatelessWidget {
   customTextFeild({
     super.key,
+    this.err,
+    this.textDescreption,
     required this.hint,
     required this.icon,
     required this.onSaved,
@@ -16,6 +18,8 @@ class customTextFeild extends StatelessWidget {
   List<TextInputFormatter>? inputFormatters;
   final String hint;
   final Icon icon;
+  final String? err;
+  final String? textDescreption;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,10 +29,19 @@ class customTextFeild extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
       ),
       child: TextFormField(
+        forceErrorText: err,
         inputFormatters: inputFormatters,
         onSaved: onSaved,
         validator: validator,
         decoration: InputDecoration(
+          helper: textDescreption != null
+              ? Center(
+                  child: Text(
+                    textDescreption!,
+                    style: TextStyle(color: Colors.black.withOpacity(0.3)),
+                  ),
+                )
+              : null,
           fillColor: Colors.white,
           prefixIcon: icon,
           hint: Text(hint, style: TextStyle(color: hintColor)),
