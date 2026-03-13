@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:car_serves/cubits/SignIn_Regester/States_RegesterAuthTransaction.dart';
 import 'package:car_serves/cubits/SignIn_Regester/cubit_RegesterAuthTransaction.dart';
+import 'package:car_serves/views/HomeView.dart';
 import 'package:car_serves/views/regesterView.dart';
 import 'package:car_serves/widget/NameApp.dart';
 import 'package:car_serves/widget/button_signIn.dart';
@@ -45,7 +46,10 @@ class _HomeviewState extends State<Homeview1> {
                   // لإغلاقه
                   Navigator.of(context).pop();
 
-                  Navigator.pushNamed(context, "HomeView");
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Homeview2()),
+                  );
                 } else if (state is state_failed) {
                   log("sssssss");
                   ScaffoldMessenger.of(context).showSnackBar(

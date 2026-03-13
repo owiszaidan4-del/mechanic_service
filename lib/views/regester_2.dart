@@ -1,5 +1,6 @@
 import 'package:car_serves/cubits/SignIn_Regester/States_RegesterAuthTransaction.dart';
 import 'package:car_serves/cubits/SignIn_Regester/cubit_RegesterAuthTransaction.dart';
+import 'package:car_serves/views/HomeView.dart';
 import 'package:car_serves/widget/CustomDropDownCityName.dart';
 import 'package:car_serves/widget/NameApp.dart';
 import 'package:car_serves/widget/button_signIn.dart';
@@ -130,7 +131,10 @@ class _Regester2State extends State<Regester2> {
                 >(
                   listener: (context, state) {
                     if (state is state_success) {
-                      Navigator.pushNamed(context, "HomeView");
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Homeview2()),
+                      );
                     } else if (state is state_failed) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(

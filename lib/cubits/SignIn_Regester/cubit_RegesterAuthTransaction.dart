@@ -48,7 +48,6 @@ class CubitRegesterauthtransaction
       final credential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email!, password: password!);
       current = credential.user!.uid;
-      emit(state_success());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         emit(state_failed(typeFailed: 'The password provided is too weak.'));
@@ -97,7 +96,10 @@ class CubitRegesterauthtransaction
           "performance": 0,
           "urlImage": null,
         })
-        .then((value) => log("User Added"))
+        .then((value) {
+          emit(state_success());
+          return;
+        })
         .catchError((error) => log("Failed to add user: $error"));
   }
 

@@ -36,7 +36,7 @@ class _MapviewState extends State<Mapview> {
 
   @override
   void dispose() {
-    //2 positionStream?.cancel();
+    positionStream?.cancel();
     googleMapController.dispose();
     super.dispose();
   }

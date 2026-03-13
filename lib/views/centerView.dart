@@ -15,6 +15,7 @@ import 'package:car_serves/widget/StateOfWork.dart';
 import 'package:car_serves/widget/sheetNewOrderWidget/sheet_new_order.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class Centerview extends StatefulWidget {
@@ -35,6 +36,13 @@ class _CenterviewState extends State<Centerview> {
   }
 
   Future<void> _checkLocationPermission() async {
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+
+    if (!serviceEnabled) {
+      await Geolocator.openLocationSettings();
+      return;
+    }
+
     final state = await Permission.location.status;
 
     if (state.isDenied || state.isRestricted) {
@@ -48,16 +56,14 @@ class _CenterviewState extends State<Centerview> {
   Widget build(BuildContext context) {
     final items = _buildMenuItems(context);
 
-    return Scaffold(
-      body: Stack(
-        children: [
-          Mapview(),
-          const StateOfWork(),
-          _buildMenuButton(),
-          _buildMenu(items),
-          _buildBottomSheets(),
-        ],
-      ),
+    return Stack(
+      children: [
+        Mapview(),
+        const StateOfWork(),
+        _buildMenuButton(),
+        _buildMenu(items),
+        _buildBottomSheets(),
+      ],
     );
   }
 

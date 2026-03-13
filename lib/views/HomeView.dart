@@ -16,6 +16,8 @@ import 'package:car_serves/views/performance.dart';
 import 'package:car_serves/views/profileView.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class Homeview2 extends StatefulWidget {
   @override
@@ -23,6 +25,29 @@ class Homeview2 extends StatefulWidget {
 }
 
 class _Homeview2State extends State<Homeview2> {
+  @override
+  void initState() {
+    super.initState();
+    _checkLocationPermission();
+  }
+
+  Future<void> _checkLocationPermission() async {
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+
+    if (!serviceEnabled) {
+      await Geolocator.openLocationSettings();
+      return;
+    }
+
+    final state = await Permission.location.status;
+
+    if (state.isDenied || state.isRestricted) {
+      await Permission.location.request();
+    } else if (state.isPermanentlyDenied) {
+      openAppSettings();
+    }
+  }
+
   final List<Widget> pages = [Centerview()];
 
   int index = 0;

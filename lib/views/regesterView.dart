@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:car_serves/cubits/SignIn_Regester/States_RegesterAuthTransaction.dart';
 import 'package:car_serves/cubits/SignIn_Regester/cubit_RegesterAuthTransaction.dart';
 import 'package:car_serves/views/regester_2.dart';
+import 'package:car_serves/views/signIn.dart';
 import 'package:car_serves/widget/NameApp.dart';
 import 'package:car_serves/widget/button_signIn.dart';
 import 'package:car_serves/widget/customTextFeild.dart';
@@ -127,7 +128,10 @@ class _RegesterviewState extends State<Regesterview> {
                     goToTxt: "سجل دخول",
                     text: "عندك حساب؟",
                     ontap: () {
-                      Navigator.pushNamed(context, "signInView", arguments: {});
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Homeview1()),
+                      );
                     },
                   ),
                 ],
