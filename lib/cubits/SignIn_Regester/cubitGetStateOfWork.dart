@@ -37,7 +37,7 @@ class Cubitgetstateofwork extends Cubit<Stategetstateofwork> {
             }
           });
     } catch (e) {
-      log(e.toString());
+      log("nullll ${e.toString()}");
       emit(StatefaieldgetstateOfWork(err: e.toString()));
     }
   }

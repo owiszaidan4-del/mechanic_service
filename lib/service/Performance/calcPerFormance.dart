@@ -34,7 +34,7 @@ class Calcperformance {
     FirebaseFirestore.instance.collection("users").doc(currentUser).update({
       "performance": totScore.clamp(0, 100),
     });
-    return totScore.clamp(0, 100);
+    return totScore.clamp(0, 100).round();
   }
 
   double avgAcceptedOrder() {

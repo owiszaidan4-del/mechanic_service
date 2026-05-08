@@ -1,3 +1,4 @@
+import 'package:car_serves/constant.dart';
 import 'package:car_serves/views/Settings/EditPasswordView.dart';
 import 'package:car_serves/views/Settings/editProfileImage.dart';
 import 'package:car_serves/views/Settings/rowSettingsWidget.dart';
@@ -68,8 +69,9 @@ class Settingsview extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(bottom: 10.0),
               child: GestureDetector(
-                onTap: () {
-                  FirebaseAuth.instance.signOut();
+                onTap: () async {
+                  await FirebaseAuth.instance.signOut();
+
                   Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(builder: (context) => Homeview1()),

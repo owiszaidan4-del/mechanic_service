@@ -31,7 +31,7 @@ class _CenterviewState extends State<Centerview> {
   @override
   void initState() {
     super.initState();
-    context.read<Cubitmanageordersstate>().manageStateOfOrders();
+    //context.read<Cubitmanageordersstate>().manageStateOfOrders();
     _checkLocationPermission();
   }
 
@@ -139,8 +139,7 @@ class _CenterviewState extends State<Centerview> {
   // =========================
 
   Widget _buildBottomSheets() {
-    return BlocConsumer<Cubitmanageordersstate, Statemanageordersstate>(
-      listener: (context, state) {},
+    return BlocBuilder<Cubitmanageordersstate, Statemanageordersstate>(
       builder: (context, state) {
         if (state is StateWaiting) {
           return sheet_new_order(

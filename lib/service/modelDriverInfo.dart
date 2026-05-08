@@ -30,7 +30,9 @@ class ModeldriverInfo {
       phoneNumber: json["phoneNumber"],
       registerDate: json["registerDate"].toString(),
       roule: json["roule"],
-      urlImage: json["urlImage"] ?? "",
+      urlImage:
+          json["urlImage"] ??
+          "https://firebasestorage.googleapis.com/v0/b/owis-412911.firebasestorage.app/o/defultImageUsers%2Fuser-image-with-black-background.png?alt=media&token=ce59134b-2fbf-4828-9238-e16d0cd2fd32",
       userid: json["userid"],
     );
   }

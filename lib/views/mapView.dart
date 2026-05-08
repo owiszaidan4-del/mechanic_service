@@ -123,6 +123,7 @@ class _MapviewState extends State<Mapview> {
           .collection("mechanicOnline")
           .doc(currentUser)
           .update(({"lat": latitude, "lng": longitude}));
+      //.update(({"lat": 31.9454, "lng": 35.9294}));
     } else {
       FirebaseFirestore.instance
           .collection("mechanicLocation")

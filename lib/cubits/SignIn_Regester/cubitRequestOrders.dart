@@ -197,7 +197,7 @@ class Cubitrequestorders extends Cubit {
       }
     } catch (e) {
       log(idUser);
-      log(e.toString());
+      log("error in cubit req order::::${e.toString()}");
 
       return null;
     }

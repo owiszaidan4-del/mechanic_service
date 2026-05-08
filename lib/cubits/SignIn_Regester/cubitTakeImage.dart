@@ -52,7 +52,7 @@ class Cubittakeimage extends Cubit<Satetakeimage> {
         await performanceCalc(idDoc);
       }
     } catch (e) {
-      log(e.toString());
+      log("cubit take image err :::${e.toString()}");
     }
   }
 

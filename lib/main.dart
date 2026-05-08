@@ -17,15 +17,16 @@ import 'package:intl/intl.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await initializeDateFormatting('ar', null);
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  await initializeDateFormatting('ar', null);
+
   Bloc.observer = Observes1();
 
   runApp(const car_serves());
-}
+} //
 
-//
 class car_serves extends StatelessWidget {
   const car_serves({super.key});
 

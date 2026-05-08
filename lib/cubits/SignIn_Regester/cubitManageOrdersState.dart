@@ -28,80 +28,94 @@ class Cubitmanageordersstate extends Cubit<Statemanageordersstate> {
           "stateOfRequest",
           whereIn: ["assigend", "accepted", "arrived", "done", "canceled"],
         )
+        .orderBy("timeOfAssigned", descending: true)
         .snapshots()
-        .listen((event) async {
-          _distanceSub?.cancel();
-          if (event.docs.isNotEmpty) {
-            final orderInfo = event.docs.first;
-            if (orderInfo.data()["stateOfRequest"] == "assigend") {
-              final modelOrders_ modelorders = modelOrders_.fromJson(
-                event.docs.first.data(),
-              );
-              final ModeldriverInfo? modeldriverInfo =
-                  await getDriverInfoAsModel(modelorders.id);
-              final idDoc = event.docs.first.id;
-              if (modeldriverInfo != null) {
-                emit(
-                  StateWaiting(
-                    modeldriverInfo: modeldriverInfo,
-                    modelorders: modelorders,
-                    idDoc: idDoc,
-                  ),
-                );
-              }
-            } else if (orderInfo.data()["stateOfRequest"] == "accepted") {
-              final modelOrders_ modelorders = modelOrders_.fromJson(
-                event.docs.first.data(),
-              );
-              final ModeldriverInfo? modeldriverInfo =
-                  await getDriverInfoAsModel(modelorders.id);
-              final idDoc = event.docs.first.id;
-              if (modeldriverInfo != null) {
-                await update_Distance_ArivalTime(
-                  lat: modelorders.lat,
-                  lng: modelorders.lng,
-                  idDoc: idDoc,
-                );
-                emit(
-                  StateAcceptOrders(
-                    idDoc: idDoc,
-                    modeldriverInfo: modeldriverInfo,
-                    modelorders: modelorders,
-                  ),
-                );
-              }
-            } else if (orderInfo.data()["stateOfRequest"] == "arrived") {
-              final modelOrders_ modelorders = modelOrders_.fromJson(
-                event.docs.first.data(),
-              );
-              final ModeldriverInfo? modeldriverInfo =
-                  await getDriverInfoAsModel(modelorders.id);
-              final idDoc = event.docs.first.id;
-              if (modeldriverInfo != null) {
-                emit(
-                  StateArrived(
-                    idDoc: idDoc,
-                    modeldriverInfo: modeldriverInfo,
-                    modelorders: modelorders,
-                  ),
-                );
-                _processedPerformanceOrders.clear();
-              }
-            } else if (orderInfo.data()["stateOfRequest"] == "done") {
-              final idDoc = event.docs.first.id;
-              emit(StateDone());
-              await Future.delayed(Duration(seconds: 5));
+        .listen(
+          (event) async {
+            print("======== LISTENER ========");
+            log("docs length: ${event.docs.length}");
+            _distanceSub?.cancel();
+            if (event.docs.isNotEmpty) {
+              final orderInfo = event.docs.first;
 
-              await FirebaseFirestore.instance
-                  .collection("orders")
-                  .doc(idDoc)
-                  .update({"stateOfRequest": "completed"});
-              emit(InetialStete());
-            } else if (orderInfo.data()["stateOfRequest"] == "canceled") {
-              emit(InetialStete());
+              log(orderInfo.data()["stateOfRequest"]);
+              if (orderInfo.data()["stateOfRequest"] == "assigend") {
+                final modelOrders_ modelorders = modelOrders_.fromJson(
+                  event.docs.first.data(),
+                );
+                final ModeldriverInfo? modeldriverInfo =
+                    await getDriverInfoAsModel(modelorders.id);
+                final idDoc = event.docs.first.id;
+
+                if (modeldriverInfo != null) {
+                  emit(
+                    StateWaiting(
+                      modeldriverInfo: modeldriverInfo,
+                      modelorders: modelorders,
+                      idDoc: idDoc,
+                    ),
+                  );
+                }
+              } else if (orderInfo.data()["stateOfRequest"] == "accepted") {
+                final modelOrders_ modelorders = modelOrders_.fromJson(
+                  event.docs.first.data(),
+                );
+                final ModeldriverInfo? modeldriverInfo =
+                    await getDriverInfoAsModel(modelorders.id);
+                final idDoc = event.docs.first.id;
+                if (modeldriverInfo != null) {
+                  await update_Distance_ArivalTime(
+                    lat: modelorders.lat,
+                    lng: modelorders.lng,
+                    idDoc: idDoc,
+                  );
+                  emit(
+                    StateAcceptOrders(
+                      idDoc: idDoc,
+                      modeldriverInfo: modeldriverInfo,
+                      modelorders: modelorders,
+                    ),
+                  );
+                }
+              } else if (orderInfo.data()["stateOfRequest"] == "arrived") {
+                final modelOrders_ modelorders = modelOrders_.fromJson(
+                  event.docs.first.data(),
+                );
+                final ModeldriverInfo? modeldriverInfo =
+                    await getDriverInfoAsModel(modelorders.id);
+                final idDoc = event.docs.first.id;
+                if (modeldriverInfo != null) {
+                  emit(
+                    StateArrived(
+                      idDoc: idDoc,
+                      modeldriverInfo: modeldriverInfo,
+                      modelorders: modelorders,
+                    ),
+                  );
+                  _processedPerformanceOrders.clear();
+                }
+              } else if (orderInfo.data()["stateOfRequest"] == "done") {
+                final idDoc = event.docs.first.id;
+                emit(StateDone());
+                await Future.delayed(Duration(seconds: 5));
+
+                await FirebaseFirestore.instance
+                    .collection("orders")
+                    .doc(idDoc)
+                    .update({"stateOfRequest": "completed"});
+                emit(InetialStete());
+              } else if (orderInfo.data()["stateOfRequest"] == "canceled") {
+                log("canceled");
+                emit(InetialStete());
+              } else {
+                log("errrrrrrrrrrr manage order");
+              }
             }
-          }
-        });
+          },
+          onError: (e) {
+            log("eror:$e");
+          },
+        );
   }
 
   update_Distance_ArivalTime({
@@ -119,11 +133,11 @@ class Cubitmanageordersstate extends Cubit<Statemanageordersstate> {
             final data = event.data();
             if (data != null) {
               double distance = Geolocator.distanceBetween(
-                // data["lat"],
-                // data["lng"],
-                31.945368,
+                data["lat"],
+                data["lng"],
+                // 31.945368,
 
-                35.928371,
+                // 35.928371,
                 lat,
                 lng,
               );
@@ -168,9 +182,11 @@ Future<ModeldriverInfo?> getDriverInfoAsModel(String idUser) async {
     if (data.exists && data.data() != null) {
       final ModeldriverInfo model = ModeldriverInfo.fromJson(data.data()!);
       return model;
+    } else {
+      log("❌ User not found: $idUser");
     }
   } catch (e) {
-    log(e.toString());
+    log("ssslsls${e.toString()}");
     // emit(StateProplem(err: e.toString()));
     return null;
   }

@@ -79,6 +79,21 @@ class CubitRegesterauthtransaction
           "stateOfWork": false,
           "time": FieldValue.serverTimestamp(),
         });
+    //pemission notification
+    final permissionState = await FirebaseMessaging.instance
+        .requestPermission();
+    final token = await FirebaseMessaging.instance.getToken();
+    if (permissionState.authorizationStatus ==
+        AuthorizationStatus.notDetermined) {
+      emit(state_failed(typeFailed: "الرجاء السماح بالاشعارات لهذا التطبيق"));
+
+      return;
+    }
+    if (permissionState.authorizationStatus == AuthorizationStatus.denied) {
+      emit(state_failed(typeFailed: "الرجاء السماح بالاشعارات لهذا التطبيق"));
+      return;
+    }
+
     // Call the user's CollectionReference to add a new user
     return users
         .doc(current)
@@ -96,6 +111,7 @@ class CubitRegesterauthtransaction
           'specialization': specialization,
           "performance": 0,
           "urlImage": null,
+          "fcmToken": token,
         })
         .then((value) {
           emit(state_success());
@@ -111,6 +127,7 @@ class CubitRegesterauthtransaction
         email: email,
         password: password,
       );
+      currentUser = FirebaseAuth.instance.currentUser!.uid;
 
       emit(state_success());
     } on FirebaseAuthException catch (e) {
