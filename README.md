@@ -76,5 +76,5 @@ Full-Stack Mobile Application (Flutter + Firebase Backend)
 **Owis Ahmad Samih Abu Zaidan**  
 CIS Student | Full-Stack Flutter Developer | Firebase Specialist  
 
-- 📧 Email: your-email@example.com  
-- 💼 LinkedIn: https://www.linkedin.com/in/owis-zaidan-b6aa4b370
+- 📧 Email: owiszaidan4@gmail.com  
+- 💼 LinkedIn: https://www.linkedin.com/in/owis-zaidan-b6aa4b370?utm_source=share_via&utm_content=profile&utm_medium=member_ios
